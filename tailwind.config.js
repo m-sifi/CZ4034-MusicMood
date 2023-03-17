@@ -6,6 +6,9 @@ module.exports = {
       colors: {
         'positive': '#eaac8b',
         'negative': '#e56b6f',
+      },
+      gridTemplateColumns: {
+        'search': '400px minmax(900px, 1fr)'
       }
     },
   },

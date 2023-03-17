@@ -1,9 +1,7 @@
 .main {
   --bg-scroll-duration: 5s;
 
-  @apply overflow-hidden flex flex-col min-h-screen p-24 justify-center items-center bg-gradient-to-r from-positive to-negative;
   background-size: 400%;
-
   -webkit-animation: bg-animated var(--bg-scroll-duration) ease infinite;
   -moz-animation: bg-animated var(--bg-scroll-duration) ease infinite;
   animation: bg-animated var(--bg-scroll-duration) ease infinite;

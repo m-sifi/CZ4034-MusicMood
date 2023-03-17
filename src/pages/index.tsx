@@ -30,20 +30,18 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <AnimatePresence mode='popLayout'>
-          <motion.div
-            initial={{ y: -300, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -300, opacity: 0 }}
+          <motion.div layout
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             transition={{
               type: "spring",
               stiffness: 260,
               damping: 20,
             }}
-            className={styles.main}>
-            {/* <Header visible={!didSearch()}/> */}
+            className={`overflow-hidden flex flex-col h-screen px-24 pb-4 justify-center items-center bg-gradient-to-r from-positive to-negative ${styles.main}`}>
             { !didSearch() && <Header visible={!didSearch()}/>}
             <Search value={searchText} onChange={e => getSearchTerm(e)}/>
-            {/* { didSearch() && <Results />} */}
             { didSearch() && <Results visible={didSearch()} /> }
         </motion.div>
       </AnimatePresence>
