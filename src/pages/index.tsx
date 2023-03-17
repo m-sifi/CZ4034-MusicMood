@@ -3,8 +3,24 @@ import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
 import { IconSearch } from '@tabler/icons-react';
 import styles from '@/styles/Home.module.css'
+import Header from '@/components/Header';
+import { useState } from 'react';
+import Results from '@/components/Results';
+import Search from '@/components/Search';
+import { AnimatePresence, motion } from 'framer-motion'
 
 export default function Home() {
+
+  const [searchText, setSearchText] = useState('');
+
+  function didSearch(): boolean {
+    return searchText !== '';
+  }
+
+  function getSearchTerm(value: string) {
+    setSearchText(value);
+  }
+
   return (
     <>
       <Head>
@@ -13,16 +29,24 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <div className='container mx-auto text-center'>
-          <h1 className='text-6xl font-extrabold leading-none tracking-tight text-gray-900'>Information Retrieval Project</h1>
-          <h2 className='text-4xl font-semibold leading-none tracking-tight text-gray-700'>Discover music using sentiment analysis based on mood</h2>
-        </div>
-        <div className='flex mt-8 p-2 w-1/2 items-center bg-gray-100 rounded-md'>
-          <IconSearch color='gray' size={24}></IconSearch>
-          <input type='text' className='border-0 flex-1 bg-transparent text-gray-600 border-transparent focus:border-transparent focus:ring-0'/>
-        </div>
-      </main>
+      <AnimatePresence mode='popLayout'>
+          <motion.div
+            initial={{ y: -300, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -300, opacity: 0 }}
+            transition={{
+              type: "spring",
+              stiffness: 260,
+              damping: 20,
+            }}
+            className={styles.main}>
+            {/* <Header visible={!didSearch()}/> */}
+            { !didSearch() && <Header visible={!didSearch()}/>}
+            <Search value={searchText} onChange={e => getSearchTerm(e)}/>
+            {/* { didSearch() && <Results />} */}
+            { didSearch() && <Results visible={didSearch()} /> }
+        </motion.div>
+      </AnimatePresence>
     </>
   )
 }
