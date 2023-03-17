@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* https://coolors.co/355070-6d597a-b56576-e56b6f-eaac8b */
+:root {
+  --positive-bg-color: #EAAC8B;
+  --negative-bg-color: #E56B6F;
+}

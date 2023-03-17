@@ -1,10 +1,12 @@
 .main {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 6rem;
-  min-height: 100vh;
+  --bg-scroll-duration: 5s;
+
+  @apply flex flex-col min-h-screen p-24 justify-center items-center bg-gradient-to-r from-positive to-negative;
+  background-size: 400%;
+
+  -webkit-animation: bg-animated var(--bg-scroll-duration) ease infinite;
+  -moz-animation: bg-animated var(--bg-scroll-duration) ease infinite;
+  animation: bg-animated var(--bg-scroll-duration) ease infinite;
 }
 
 .description {
@@ -274,5 +276,15 @@
   }
   to {
     transform: rotate(0deg);
+  }
+}
+
+@keyframes bg-animated {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
   }
 }
