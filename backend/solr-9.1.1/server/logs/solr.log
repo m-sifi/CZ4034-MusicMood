@@ -1,0 +1,146 @@
+2023-03-18 15:35:03.966 INFO  (main) [] o.e.j.u.log Logging initialized @1892ms to org.eclipse.jetty.util.log.Slf4jLog
+2023-03-18 15:35:04.298 INFO  (main) [] o.e.j.s.Server jetty-9.4.48.v20220622; built: 2022-06-21T20:42:25.880Z; git: 6b67c5719d1f4371b33655ff2d047d24e171e49a; jvm 19.0.2+7-44
+2023-03-18 15:35:04.695 INFO  (main) [] o.a.s.s.CoreContainerProvider Using logger factory org.apache.logging.slf4j.Log4jLoggerFactory
+2023-03-18 15:35:04.710 INFO  (main) [] o.a.s.s.CoreContainerProvider  ___      _       Welcome to Apache Solr™ version 9.1.1
+2023-03-18 15:35:04.711 INFO  (main) [] o.a.s.s.CoreContainerProvider / __| ___| |_ _   Starting in cloud mode on port 8983
+2023-03-18 15:35:04.711 INFO  (main) [] o.a.s.s.CoreContainerProvider \__ \/ _ \ | '_|  Install dir: /Users/frank/CZ4034-Web/backend/solr-9.1.1
+2023-03-18 15:35:04.711 INFO  (main) [] o.a.s.s.CoreContainerProvider |___/\___/_|_|    Start time: 2023-03-18T15:35:04.711552Z
+2023-03-18 15:35:04.720 INFO  (main) [] o.a.s.s.CoreContainerProvider Solr Home: /Users/frank/CZ4034-Web/backend/solr-9.1.1/server/solr (source: system property: solr.solr.home)
+2023-03-18 15:35:04.723 INFO  (main) [] o.a.s.c.SolrXmlConfig Loading solr.xml from /Users/frank/CZ4034-Web/backend/solr-9.1.1/server/solr/solr.xml
+2023-03-18 15:35:04.837 INFO  (main) [] o.a.s.c.SolrResourceLoader Added 1 libs to classloader, from paths: [/Users/frank/CZ4034-Web/backend/solr-9.1.1/lib]
+2023-03-18 15:35:06.250 WARN  (main) [] o.a.s.u.StartupLoggingUtils Jetty request logging enabled. Will retain logs for last 3 days. See chapter "Configuring Logging" in reference guide for how to configure.
+2023-03-18 15:35:06.262 INFO  (main) [] o.a.s.c.SolrZkServerProps Reading configuration from: /Users/frank/CZ4034-Web/backend/solr-9.1.1/server/solr/zoo.cfg
+2023-03-18 15:35:06.268 INFO  (main) [] o.a.s.c.SolrZkServer STARTING EMBEDDED STANDALONE ZOOKEEPER SERVER at port 9983
+2023-03-18 15:35:06.268 WARN  (main) [] o.a.s.c.SolrZkServer Embedded Zookeeper is not recommended in production environments. See Reference Guide for details.
+2023-03-18 15:35:06.323 WARN  (embeddedZkServer) [] o.a.z.s.ServerCnxnFactory maxCnxns is not configured, using default value 0.
+2023-03-18 15:35:06.771 INFO  (main) [] o.a.s.c.ZkContainer Zookeeper client=localhost:9983
+2023-03-18 15:35:06.799 INFO  (main) [] o.a.s.c.DistributedClusterStateUpdater Creating DistributedClusterStateUpdater with useDistributedStateUpdate=false. Solr will be using Overseer based cluster state updates.
+2023-03-18 15:35:06.840 INFO  (main) [] o.a.s.c.c.ConnectionManager Waiting up to 30000ms for client to connect to ZooKeeper
+2023-03-18 15:35:06.885 INFO  (zkConnectionManagerCallback-10-thread-1) [] o.a.s.c.c.ConnectionManager zkClient has connected
+2023-03-18 15:35:06.885 INFO  (main) [] o.a.s.c.c.ConnectionManager Client is connected to ZooKeeper
+2023-03-18 15:35:06.931 WARN  (main) [] o.a.s.c.ZkController Contents of zookeeper /security.json are world-readable; consider setting up ACLs as described in https://solr.apache.org/guide/solr/latest/deployment-guide/zookeeper-access-control.html
+2023-03-18 15:35:06.963 INFO  (main) [] o.a.s.c.DistributedClusterStateUpdater Creating DistributedClusterStateUpdater with useDistributedStateUpdate=false. Solr will be using Overseer based cluster state updates.
+2023-03-18 15:35:06.996 INFO  (main) [] o.a.s.c.OverseerElectionContext I am going to be the leader localhost:8983_solr
+2023-03-18 15:35:07.046 INFO  (main) [] o.a.s.c.Overseer Overseer (id=72066017015037952-localhost:8983_solr-n_0000000001) starting
+2023-03-18 15:35:07.162 INFO  (main) [] o.a.s.c.ZkController Register node as live in ZooKeeper:/live_nodes/localhost:8983_solr
+2023-03-18 15:35:07.163 INFO  (OverseerStateUpdate-72066017015037952-localhost:8983_solr-n_0000000001) [] o.a.s.c.Overseer Starting to work on the main queue : localhost:8983_solr
+2023-03-18 15:35:07.194 INFO  (zkCallback-9-thread-1) [] o.a.s.c.c.ZkStateReader Updated live nodes from ZooKeeper... (0) -> (1)
+2023-03-18 15:35:07.261 WARN  (main) [] o.a.s.c.CoreContainer Not all security plugins configured!  authentication=disabled authorization=disabled.  Solr is only as secure as you make it. Consider configuring authentication/authorization before exposing Solr to users internal or external.  See https://s.apache.org/solrsecurity for more info
+2023-03-18 15:35:07.619 INFO  (main) [] o.a.s.c.CorePropertiesLocator Found 1 core definitions underneath /Users/frank/CZ4034-Web/backend/solr-9.1.1/server/solr
+2023-03-18 15:35:07.619 INFO  (main) [] o.a.s.c.CorePropertiesLocator Cores are: [music_shard1_replica_n1]
+2023-03-18 15:35:07.636 INFO  (coreLoadExecutor-17-thread-1-processing-localhost:8983_solr) [] o.a.s.c.TransientSolrCoreCacheDefault Allocating transient core cache for max 2147483647 cores with initial capacity of 1024
+2023-03-18 15:35:07.685 INFO  (coreLoadExecutor-17-thread-1-processing-localhost:8983_solr) [] o.a.s.c.SolrConfig Using Lucene MatchVersion: 9.3.0
+2023-03-18 15:35:07.733 INFO  (main) [] o.e.j.s.h.ContextHandler Started o.e.j.w.WebAppContext@6fa590ba{/solr,file:///Users/frank/CZ4034-Web/backend/solr-9.1.1/server/solr-webapp/webapp/,AVAILABLE}{/Users/frank/CZ4034-Web/backend/solr-9.1.1/server/solr-webapp/webapp}
+2023-03-18 15:35:07.741 INFO  (main) [] o.e.j.s.RequestLogWriter Opened /Users/frank/CZ4034-Web/backend/solr-9.1.1/server/logs/2023_03_18.request.log
+2023-03-18 15:35:07.749 INFO  (main) [] o.e.j.s.AbstractConnector Started ServerConnector@7fc6de5b{HTTP/1.1, (http/1.1, h2c)}{127.0.0.1:8983}
+2023-03-18 15:35:07.749 INFO  (main) [] o.e.j.s.Server Started @5677ms
+2023-03-18 15:35:07.769 INFO  (coreLoadExecutor-17-thread-1-processing-localhost:8983_solr) [] o.a.s.s.IndexSchema Schema name=default-config
+2023-03-18 15:35:08.130 INFO  (coreLoadExecutor-17-thread-1-processing-localhost:8983_solr) [] o.a.s.s.IndexSchema Loaded schema default-config/1.6 with uniqueid field id
+2023-03-18 15:35:08.161 INFO  (coreLoadExecutor-17-thread-1-processing-localhost:8983_solr) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.c.SolrConfig Using Lucene MatchVersion: 9.3.0
+2023-03-18 15:35:08.164 INFO  (coreLoadExecutor-17-thread-1-processing-localhost:8983_solr) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.s.IndexSchema Schema name=default-config
+2023-03-18 15:35:08.254 INFO  (coreLoadExecutor-17-thread-1-processing-localhost:8983_solr) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.s.IndexSchema Loaded schema default-config/1.6 with uniqueid field id
+2023-03-18 15:35:08.254 INFO  (coreLoadExecutor-17-thread-1-processing-localhost:8983_solr) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.c.CoreContainer Creating SolrCore 'music_shard1_replica_n1' using configuration from configset music.AUTOCREATED, trusted=true
+2023-03-18 15:35:08.296 INFO  (coreLoadExecutor-17-thread-1-processing-localhost:8983_solr) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.c.SolrCore Opening new SolrCore at [/Users/frank/CZ4034-Web/backend/solr-9.1.1/server/solr/music_shard1_replica_n1], dataDir=[/Users/frank/CZ4034-Web/backend/solr-9.1.1/server/solr/music_shard1_replica_n1/data/]
+2023-03-18 15:35:08.833 INFO  (coreLoadExecutor-17-thread-1-processing-localhost:8983_solr) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.u.UpdateHandler Using UpdateLog implementation: org.apache.solr.update.UpdateLog
+2023-03-18 15:35:08.834 INFO  (coreLoadExecutor-17-thread-1-processing-localhost:8983_solr) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.u.UpdateLog Initializing UpdateLog: dataDir= defaultSyncLevel=FLUSH numRecordsToKeep=100 maxNumLogsToKeep=10 numVersionBuckets=65536
+2023-03-18 15:35:08.863 INFO  (coreLoadExecutor-17-thread-1-processing-localhost:8983_solr) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.u.CommitTracker Hard AutoCommit: if uncommitted for 15000ms; 
+2023-03-18 15:35:08.864 INFO  (coreLoadExecutor-17-thread-1-processing-localhost:8983_solr) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.u.CommitTracker Soft AutoCommit: disabled
+2023-03-18 15:35:09.115 INFO  (coreLoadExecutor-17-thread-1-processing-localhost:8983_solr) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.r.ManagedResourceStorage Configured ZooKeeperStorageIO with znodeBase: /configs/music.AUTOCREATED
+2023-03-18 15:35:09.119 INFO  (coreLoadExecutor-17-thread-1-processing-localhost:8983_solr) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.r.ManagedResourceStorage Loaded null at path _rest_managed.json using ZooKeeperStorageIO:path=/configs/music.AUTOCREATED
+2023-03-18 15:35:09.122 INFO  (coreLoadExecutor-17-thread-1-processing-localhost:8983_solr) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.s.ZkIndexSchemaReader Creating ZooKeeper watch for the managed schema at /configs/music.AUTOCREATED/managed-schema.xml
+2023-03-18 15:35:09.124 INFO  (coreLoadExecutor-17-thread-1-processing-localhost:8983_solr) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.s.ZkIndexSchemaReader Current schema version 12 is already the latest
+2023-03-18 15:35:09.142 INFO  (coreLoadExecutor-17-thread-1-processing-localhost:8983_solr) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.s.DirectSolrSpellChecker init: {maxEdits=2, minPrefix=1, maxInspections=5, minQueryLength=4, name=default, field=_text_, classname=solr.DirectSolrSpellChecker, distanceMeasure=internal, accuracy=0.5, maxQueryFrequency=0.01}
+2023-03-18 15:35:09.154 INFO  (coreLoadExecutor-17-thread-1-processing-localhost:8983_solr) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.h.ReplicationHandler Commits will be reserved for 10000 ms
+2023-03-18 15:35:09.181 INFO  (searcherExecutor-19-thread-1-processing-localhost:8983_solr music_shard1_replica_n1 music shard1 core_node2) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.c.QuerySenderListener QuerySenderListener done.
+2023-03-18 15:35:09.181 INFO  (searcherExecutor-19-thread-1-processing-localhost:8983_solr music_shard1_replica_n1 music shard1 core_node2) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.h.c.SpellCheckComponent Loading spell index for spellchecker: default
+2023-03-18 15:35:09.191 INFO  (searcherExecutor-19-thread-1-processing-localhost:8983_solr music_shard1_replica_n1 music shard1 core_node2) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.c.SolrCore Registered new searcher autowarm time: 0 ms
+2023-03-18 15:35:09.286 INFO  (coreZkRegister-1-thread-1-processing-localhost:8983_solr) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.c.ShardLeaderElectionContextBase make sure parent is created /collections/music/leaders/shard1
+2023-03-18 15:35:09.314 INFO  (coreZkRegister-1-thread-1-processing-localhost:8983_solr) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.c.ShardLeaderElectionContext Enough replicas found to continue.
+2023-03-18 15:35:09.315 INFO  (coreZkRegister-1-thread-1-processing-localhost:8983_solr) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.c.ShardLeaderElectionContext I may be the new leader - try and sync
+2023-03-18 15:35:09.315 INFO  (coreZkRegister-1-thread-1-processing-localhost:8983_solr) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.c.SyncStrategy Sync replicas to http://localhost:8983/solr/music_shard1_replica_n1/
+2023-03-18 15:35:09.318 INFO  (coreZkRegister-1-thread-1-processing-localhost:8983_solr) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.c.SyncStrategy Sync Success - now sync replicas to me
+2023-03-18 15:35:09.319 INFO  (coreZkRegister-1-thread-1-processing-localhost:8983_solr) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.c.SyncStrategy http://localhost:8983/solr/music_shard1_replica_n1/ has no replicas
+2023-03-18 15:35:09.320 INFO  (coreZkRegister-1-thread-1-processing-localhost:8983_solr) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.c.ShardLeaderElectionContextBase Creating leader registration node /collections/music/leaders/shard1/leader after winning as /collections/music/leader_elect/shard1/election/72066017015037952-core_node2-n_0000000001
+2023-03-18 15:35:09.348 INFO  (coreZkRegister-1-thread-1-processing-localhost:8983_solr) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.c.ShardLeaderElectionContext I am the new leader: http://localhost:8983/solr/music_shard1_replica_n1/ shard1
+2023-03-18 15:35:09.359 INFO  (coreZkRegister-1-thread-1-processing-localhost:8983_solr) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.c.ZkController I am the leader, no recovery necessary
+2023-03-18 15:35:09.423 INFO  (zkCallback-9-thread-1) [] o.a.s.c.c.ZkStateReader A cluster state change: [WatchedEvent state:SyncConnected type:NodeDataChanged path:/collections/music/state.json] for collection [music] has occurred - updating... (live nodes size: [1])
+2023-03-18 15:35:09.423 INFO  (zkCallback-9-thread-2) [] o.a.s.c.c.ZkStateReader A cluster state change: [WatchedEvent state:SyncConnected type:NodeDataChanged path:/collections/music/state.json] for collection [music] has occurred - updating... (live nodes size: [1])
+2023-03-18 15:35:09.424 INFO  (zkCallback-9-thread-3) [] o.a.s.c.c.ZkStateReader A cluster state change: [WatchedEvent state:SyncConnected type:NodeDataChanged path:/collections/music/state.json] for collection [music] has occurred - updating... (live nodes size: [1])
+2023-03-18 15:35:09.425 INFO  (zkCallback-9-thread-4) [] o.a.s.c.c.ZkStateReader A cluster state change: [WatchedEvent state:SyncConnected type:NodeDataChanged path:/collections/music/state.json] for collection [music] has occurred - updating... (live nodes size: [1])
+2023-03-18 15:35:09.425 INFO  (zkCallback-9-thread-5) [] o.a.s.c.c.ZkStateReader A cluster state change: [WatchedEvent state:SyncConnected type:NodeDataChanged path:/collections/music/state.json] for collection [music] has occurred - updating... (live nodes size: [1])
+2023-03-18 15:35:18.412 INFO  (qtp1574749319-39) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.c.S.Request webapp=/solr path=/select params={q=lyrics:happy&rows=10} hits=184 status=0 QTime=215
+2023-03-18 15:35:24.670 INFO  (qtp1574749319-34) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.c.S.Request webapp=/solr path=/select params={q=lyrics:happy&rows=10} hits=184 status=0 QTime=5
+2023-03-18 15:35:24.674 INFO  (qtp1574749319-35) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.c.S.Request webapp=/solr path=/select params={q=lyrics:happy&rows=10} hits=184 status=0 QTime=0
+2023-03-18 15:35:45.352 INFO  (qtp1574749319-41) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.c.S.Request webapp=/solr path=/select params={q=lyrics:happy&rows=10} hits=184 status=0 QTime=1
+2023-03-18 15:35:55.519 INFO  (qtp1574749319-39) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.c.S.Request webapp=/solr path=/select params={q=lyrics:happy&rows=10} hits=184 status=0 QTime=1
+2023-03-18 15:35:55.531 INFO  (qtp1574749319-41) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.c.S.Request webapp=/solr path=/select params={q=lyrics:happy&rows=10} hits=184 status=0 QTime=0
+2023-03-18 15:36:02.021 INFO  (qtp1574749319-33) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=2
+2023-03-18 15:36:02.025 INFO  (qtp1574749319-32) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152468635&since=0} status=0 QTime=0
+2023-03-18 15:36:37.446 INFO  (qtp1574749319-39) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.c.S.Request webapp=/solr path=/select params={q=lyrics:happy&rows=10} hits=184 status=0 QTime=1
+2023-03-18 15:37:02.033 INFO  (qtp1574749319-41) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152468635&since=0} status=0 QTime=0
+2023-03-18 15:37:02.034 INFO  (qtp1574749319-40) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=1
+2023-03-18 15:38:02.031 INFO  (qtp1574749319-39) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=4
+2023-03-18 15:38:02.031 INFO  (qtp1574749319-35) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152468635&since=0} status=0 QTime=4
+2023-03-18 15:39:02.033 INFO  (qtp1574749319-38) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=1
+2023-03-18 15:39:02.033 INFO  (qtp1574749319-41) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152468635&since=0} status=0 QTime=1
+2023-03-18 15:40:02.019 INFO  (qtp1574749319-33) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=0
+2023-03-18 15:40:02.019 INFO  (qtp1574749319-39) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152468635&since=0} status=0 QTime=0
+2023-03-18 15:40:20.259 INFO  (qtp1574749319-41) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=0
+2023-03-18 15:40:31.012 INFO  (qtp1574749319-33) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=0
+2023-03-18 15:40:42.016 INFO  (qtp1574749319-41) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=0
+2023-03-18 15:40:53.013 INFO  (qtp1574749319-33) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=0
+2023-03-18 15:41:02.017 INFO  (qtp1574749319-41) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152468635&since=0} status=0 QTime=0
+2023-03-18 15:41:04.014 INFO  (qtp1574749319-33) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=0
+2023-03-18 15:41:15.033 INFO  (qtp1574749319-41) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=0
+2023-03-18 15:41:26.022 INFO  (qtp1574749319-39) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=0
+2023-03-18 15:41:37.016 INFO  (qtp1574749319-41) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=0
+2023-03-18 15:41:48.020 INFO  (qtp1574749319-39) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=1
+2023-03-18 15:41:59.017 INFO  (qtp1574749319-41) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=0
+2023-03-18 15:42:02.030 INFO  (qtp1574749319-39) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152468635&since=0} status=0 QTime=0
+2023-03-18 15:42:10.013 INFO  (qtp1574749319-41) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=0
+2023-03-18 15:42:21.026 INFO  (qtp1574749319-39) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=0
+2023-03-18 15:42:32.018 INFO  (qtp1574749319-41) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=0
+2023-03-18 15:42:43.014 INFO  (qtp1574749319-39) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=0
+2023-03-18 15:42:54.015 INFO  (qtp1574749319-41) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=0
+2023-03-18 15:43:02.016 INFO  (qtp1574749319-39) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152468635&since=0} status=0 QTime=0
+2023-03-18 15:43:05.014 INFO  (qtp1574749319-41) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=0
+2023-03-18 15:43:16.019 INFO  (qtp1574749319-39) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=0
+2023-03-18 15:43:27.956 INFO  (qtp1574749319-41) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=0
+2023-03-18 15:43:38.019 INFO  (qtp1574749319-39) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=0
+2023-03-18 15:43:49.015 INFO  (qtp1574749319-41) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=0
+2023-03-18 15:44:00.016 INFO  (qtp1574749319-39) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=0
+2023-03-18 15:44:02.042 INFO  (qtp1574749319-41) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152468635&since=0} status=0 QTime=0
+2023-03-18 15:44:11.020 INFO  (qtp1574749319-39) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=0
+2023-03-18 15:44:22.019 INFO  (qtp1574749319-41) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=0
+2023-03-18 15:44:33.016 INFO  (qtp1574749319-39) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=0
+2023-03-18 15:44:44.019 INFO  (qtp1574749319-41) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=0
+2023-03-18 15:44:55.021 INFO  (qtp1574749319-39) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=1
+2023-03-18 15:45:02.058 INFO  (qtp1574749319-41) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152468635&since=0} status=0 QTime=0
+2023-03-18 15:45:06.021 INFO  (qtp1574749319-39) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=0
+2023-03-18 15:45:17.345 INFO  (qtp1574749319-41) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=0
+2023-03-18 15:46:02.027 INFO  (qtp1574749319-39) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=0
+2023-03-18 15:46:02.039 INFO  (qtp1574749319-41) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152468635&since=0} status=0 QTime=0
+2023-03-18 15:47:02.024 INFO  (qtp1574749319-39) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152468635&since=0} status=0 QTime=0
+2023-03-18 15:47:02.032 INFO  (qtp1574749319-34) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=0
+2023-03-18 15:48:02.026 INFO  (qtp1574749319-39) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152468635&since=0} status=0 QTime=0
+2023-03-18 15:48:02.027 INFO  (qtp1574749319-41) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=0
+2023-03-18 15:49:02.039 INFO  (qtp1574749319-37) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=2
+2023-03-18 15:49:02.049 INFO  (qtp1574749319-41) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152468635&since=0} status=0 QTime=1
+2023-03-18 15:50:02.029 INFO  (qtp1574749319-37) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=0
+2023-03-18 15:50:02.029 INFO  (qtp1574749319-34) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152468635&since=0} status=0 QTime=0
+2023-03-18 15:51:02.033 INFO  (qtp1574749319-37) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152468635&since=0} status=0 QTime=0
+2023-03-18 15:51:02.033 INFO  (qtp1574749319-39) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=0
+2023-03-18 15:52:02.037 INFO  (qtp1574749319-41) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152468635&since=0} status=0 QTime=2
+2023-03-18 15:52:02.039 INFO  (qtp1574749319-34) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=7
+2023-03-18 15:53:02.039 INFO  (qtp1574749319-39) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152468635&since=0} status=0 QTime=1
+2023-03-18 15:53:02.042 INFO  (qtp1574749319-32) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=0
+2023-03-18 15:54:02.056 INFO  (qtp1574749319-41) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=5
+2023-03-18 15:54:02.056 INFO  (qtp1574749319-34) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152468635&since=0} status=0 QTime=5
+2023-03-18 15:55:02.013 INFO  (qtp1574749319-39) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152468635&since=0} status=0 QTime=0
+2023-03-18 15:55:02.014 INFO  (qtp1574749319-32) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=0
+2023-03-18 15:55:40.601 INFO  (qtp1574749319-40) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.c.S.Request webapp=/solr path=/select params={q=lyrics:happy&rows=10} hits=184 status=0 QTime=29
+2023-03-18 15:55:40.617 INFO  (qtp1574749319-32) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.c.S.Request webapp=/solr path=/select params={q=lyrics:happy&rows=10} hits=184 status=0 QTime=1
+2023-03-18 15:55:51.128 INFO  (qtp1574749319-39) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.c.S.Request webapp=/solr path=/select params={q=lyrics:happy&rows=10} hits=184 status=0 QTime=2
+2023-03-18 15:55:57.294 INFO  (qtp1574749319-32) [c:music s:shard1 r:core_node2 x:music_shard1_replica_n1] o.a.s.c.S.Request webapp=/solr path=/select params={q=lyrics:sad&rows=10} hits=138 status=0 QTime=82
+2023-03-18 15:56:02.009 INFO  (qtp1574749319-41) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152912400&since=0} status=0 QTime=0
+2023-03-18 15:56:02.009 INFO  (qtp1574749319-34) [] o.a.s.s.HttpSolrCall [admin] webapp=null path=/admin/info/logging params={wt=json&_=1679152468635&since=0} status=0 QTime=0
