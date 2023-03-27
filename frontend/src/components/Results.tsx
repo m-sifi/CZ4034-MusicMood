@@ -1,36 +1,65 @@
 import { AnimatePresence, motion } from "framer-motion";
-import Song from "./Song";
+import { SongItem } from "./SongItem";
+import { Song } from "../interfaces/song";
 import SongList from "./SongList";
-import { useEffect, useState } from "react";
+import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
 import axios from "axios";
+import InfiniteScroll from "react-infinite-scroller";
+import SongListItem from "./SongListItem";
 
 interface ResultsProps {
   visible: boolean;
   searchText: string;
 }
 
+async function fetchSongs(searchText: string, page: number, size: number) {
+  const url = "http://localhost:8983/solr/music/select";
+  const params = {
+    q: `lyrics:${searchText}`,
+    start: size * page,
+    rows: size,
+  };
+
+  const response = await axios.get(url, {
+    params: params,
+  });
+
+  return response.data.response.docs;
+}
+
 export function Results({ visible, searchText }: ResultsProps) {
-  const [songs, setSongs] = useState([]);
+  const [songs, setSongs] = useState<Song[]>([]);
+  const [page, setPage] = useState(0);
+  const [size, setSize] = useState(10);
+  const [hasMore, setHasMore] = useState(true);
+
+  const [selectedSong, setSelectedSong] = useState<Song>(null!);
+
+  // useEffect(() => {
+  //   fetchSongs(searchText, page, size)
+  //     .catch(console.error)
+  //     .then((resp) => {
+  //       setSongs(resp);
+  //     }
+  // )}, []);
+
+  const fetchMoreSongs = () => {
+    fetchSongs(searchText, page, size)
+      .catch(console.error)
+      .then((resp) => {
+        setHasMore(resp.length > 0);
+        setSongs([...songs, ...resp]);
+        setPage(page + 1);
+      });
+  };
+
+  function displaySong(song:Song) {
+    setSelectedSong(song);
+  }
 
   useEffect(() => {
-    const fetchData = async () => {
-      const url = "http://localhost:8983/solr/music/select";
-      const params = {
-        q: `lyrics:${searchText}`,
-        rows: 10,
-      };
-      try {
-        const response = await axios.get(url, {
-          params: params,
-        });
-        setSongs(response.data.response.docs);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchData();
-  }, [searchText]);
+    setSongs([]);
+  }, [searchText])
 
   return (
     <AnimatePresence mode="popLayout">
@@ -46,8 +75,20 @@ export function Results({ visible, searchText }: ResultsProps) {
           }}
           className="grid grid-cols-search gap-4 overflow-y-auto self-stretch flex-1 my-4 p-4 mx-auto text-center bg-gray-100 rounded-lg"
         >
-          <SongList songs={songs} />
-          {songs.length > 0 && <Song song={songs[0]} />}
+          <motion.div id="divSongList" className="p-2 overflow-x-hidden overflow-y-auto border-r-2">
+            <InfiniteScroll
+              pageStart={0}
+              loadMore={fetchMoreSongs}
+              hasMore={hasMore}
+              loader={<h3> Loading...</h3>}
+              useWindow={false}
+            >
+              {songs.map((data, index) => (
+                <SongListItem key={`${data.id}_${index}`} song={data} displaySong={ displaySong } />
+              ))}
+            </InfiniteScroll>
+          </motion.div>
+          {selectedSong  && <SongItem song={selectedSong} />}
         </motion.div>
       )}
     </AnimatePresence>
