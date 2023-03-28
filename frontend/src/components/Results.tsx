@@ -14,7 +14,7 @@ export function Results({ visible, searchText }: ResultsProps) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const url = "http://localhost:8983/solr/music/select";
+      const url = "http://127.0.0.1:8000/search";
       const params = {
         q: `lyrics:${searchText}`,
         rows: 10,
