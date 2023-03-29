@@ -13,7 +13,7 @@ interface ResultsProps {
 }
 
 async function fetchSongs(searchText: string, page: number, size: number) {
-  const url = "http://localhost:8983/solr/music/select";
+  const url = "http://127.0.0.1:8000/search";
   const params = {
     q: `lyrics:${searchText}`,
     start: size * page,
@@ -53,13 +53,13 @@ export function Results({ visible, searchText }: ResultsProps) {
       });
   };
 
-  function displaySong(song:Song) {
+  function displaySong(song: Song) {
     setSelectedSong(song);
   }
 
   useEffect(() => {
     setSongs([]);
-  }, [searchText])
+  }, [searchText]);
 
   return (
     <AnimatePresence mode="popLayout">
@@ -75,7 +75,10 @@ export function Results({ visible, searchText }: ResultsProps) {
           }}
           className="grid grid-cols-search gap-4 overflow-y-auto self-stretch flex-1 my-4 p-4 mx-auto text-center bg-gray-100 rounded-lg"
         >
-          <motion.div id="divSongList" className="p-2 overflow-x-hidden overflow-y-auto border-r-2">
+          <motion.div
+            id="divSongList"
+            className="p-2 overflow-x-hidden overflow-y-auto border-r-2"
+          >
             <InfiniteScroll
               pageStart={0}
               loadMore={fetchMoreSongs}
@@ -84,11 +87,15 @@ export function Results({ visible, searchText }: ResultsProps) {
               useWindow={false}
             >
               {songs.map((data, index) => (
-                <SongListItem key={`${data.id}_${index}`} song={data} displaySong={ displaySong } />
+                <SongListItem
+                  key={`${data.id}_${index}`}
+                  song={data}
+                  displaySong={displaySong}
+                />
               ))}
             </InfiniteScroll>
           </motion.div>
-          {selectedSong  && <SongItem song={selectedSong} />}
+          {selectedSong && <SongItem song={selectedSong} />}
         </motion.div>
       )}
     </AnimatePresence>
