@@ -4,10 +4,12 @@ const inter = Inter({ subsets: ["latin"] });
 import { IconSearch } from "@tabler/icons-react";
 import styles from "@/styles/Home.module.css";
 import Header from "@/components/Header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Results from "@/components/Results";
 import Search from "@/components/Search";
 import { AnimatePresence, motion } from "framer-motion";
+import axios from "axios";
+import { Song } from "../interfaces/song";
 
 export default function Home() {
   const [searchText, setSearchText] = useState("");

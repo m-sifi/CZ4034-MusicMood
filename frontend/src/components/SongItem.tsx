@@ -6,7 +6,7 @@ interface SongProps {
   song: Song;
 }
 
-export function Song({ song }: SongProps) {
+export function SongItem({ song }: SongProps) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -28,4 +28,4 @@ export function Song({ song }: SongProps) {
   );
 }
 
-export default Song;
+export default SongItem;

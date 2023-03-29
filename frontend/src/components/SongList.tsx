@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import SongListItem from "./SongListItem";
 import { Song } from "../interfaces/song";
+import { useEffect } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 function Song(song: Song) {
   return (

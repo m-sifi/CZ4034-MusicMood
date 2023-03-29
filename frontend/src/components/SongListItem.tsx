@@ -1,12 +1,14 @@
 import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
 
 import { Song } from "../interfaces/song";
 
 interface SongListItemProps {
   song: Song;
+  displaySong: (song: Song) => void;
 }
 
-export function SongListItem({ song }: SongListItemProps) {
+export function SongListItem({ song, displaySong }: SongListItemProps) {
   return (
     <motion.div
       initial={{ x: 100, opacity: 0 }}
@@ -19,6 +21,7 @@ export function SongListItem({ song }: SongListItemProps) {
         damping: 20,
       }}
       className="flex p-4 align-middle bg-gray-200 hover:bg-gray-300 rounded-md"
+      onClick={() => displaySong(song)}
     >
       <div className="rounded-full bg-gray-600 my-auto w-[40px] h-[40px]">
         <img src={song.images}></img>
