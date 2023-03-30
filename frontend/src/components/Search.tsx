@@ -7,13 +7,14 @@ import MicRecorder from "mic-recorder-to-mp3";
 import { start } from "repl";
 
 interface SearchProps {
+  active?: boolean;
   value: string;
   onChange: (value: string) => void;
 }
 
 const Mp3Recorder = new MicRecorder({ bitRate: 128 });
 
-export function Search({ onChange, value }: SearchProps) {
+export function Search({ active, onChange, value }: SearchProps) {
   const [searchValue, setSearchValue] = useState(value);
   const [isRecording, setIsRecording] = useState(false);
 
@@ -54,6 +55,7 @@ export function Search({ onChange, value }: SearchProps) {
 
   return (
     <AnimatePresence mode="popLayout">
+      {active && (
       <motion.div
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -88,6 +90,7 @@ export function Search({ onChange, value }: SearchProps) {
           )}
         </button>
       </motion.div>
+       )}
     </AnimatePresence>
   );
 }

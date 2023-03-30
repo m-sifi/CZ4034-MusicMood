@@ -1,11 +1,8 @@
-Java HotSpot(TM) 64-Bit Server VM warning: -XX:+UseLargePages not supported in this VM
 CompileCommand: exclude com/github/benmanes/caffeine/cache/BoundedLocalCache.put bool exclude = true
-WARNING: A command line option has enabled the Security Manager
-WARNING: The Security Manager is deprecated and will be removed in a future release
-2023-03-18 15:35:03.966 INFO  (main) [] o.e.j.u.log Logging initialized @1892ms to org.eclipse.jetty.util.log.Slf4jLog
-2023-03-18 15:35:04.298 INFO  (main) [] o.e.j.s.Server jetty-9.4.48.v20220622; built: 2022-06-21T20:42:25.880Z; git: 6b67c5719d1f4371b33655ff2d047d24e171e49a; jvm 19.0.2+7-44
-2023-03-18 15:35:04.695 INFO  (main) [] o.a.s.s.CoreContainerProvider Using logger factory org.apache.logging.slf4j.Log4jLoggerFactory
-2023-03-18 15:35:04.710 INFO  (main) [] o.a.s.s.CoreContainerProvider  ___      _       Welcome to Apache Solr™ version 9.1.1
-2023-03-18 15:35:04.711 INFO  (main) [] o.a.s.s.CoreContainerProvider / __| ___| |_ _   Starting in cloud mode on port 8983
-2023-03-18 15:35:04.711 INFO  (main) [] o.a.s.s.CoreContainerProvider \__ \/ _ \ | '_|  Install dir: /Users/frank/CZ4034-Web/backend/solr-9.1.1
-2023-03-18 15:35:04.711 INFO  (main) [] o.a.s.s.CoreContainerProvider |___/\___/_|_|    Start time: 2023-03-18T15:35:04.711552Z
+2023-03-30 13:53:05.704 INFO  (main) [] o.e.j.u.log Logging initialized @1342ms to org.eclipse.jetty.util.log.Slf4jLog
+2023-03-30 13:53:05.968 INFO  (main) [] o.e.j.s.Server jetty-9.4.48.v20220622; built: 2022-06-21T20:42:25.880Z; git: 6b67c5719d1f4371b33655ff2d047d24e171e49a; jvm 20+36-2344
+2023-03-30 13:53:06.631 INFO  (main) [] o.a.s.s.CoreContainerProvider Using logger factory org.apache.logging.slf4j.Log4jLoggerFactory
+2023-03-30 13:53:06.644 INFO  (main) [] o.a.s.s.CoreContainerProvider  ___      _       Welcome to Apache Solr™ version 9.1.1
+2023-03-30 13:53:06.644 INFO  (main) [] o.a.s.s.CoreContainerProvider / __| ___| |_ _   Starting in cloud mode on port 8983
+2023-03-30 13:53:06.644 INFO  (main) [] o.a.s.s.CoreContainerProvider \__ \/ _ \ | '_|  Install dir: C:\Users\redle\OneDrive\Documents\GitHub\CZ4034-Web\backend\solr-9.1.1
+2023-03-30 13:53:06.644 INFO  (main) [] o.a.s.s.CoreContainerProvider |___/\___/_|_|    Start time: 2023-03-30T13:53:06.644539200Z
