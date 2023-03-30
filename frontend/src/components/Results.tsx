@@ -10,15 +10,26 @@ import SongListItem from "./SongListItem";
 interface ResultsProps {
   visible: boolean;
   searchText: string;
+  searchGenreText: string;
 }
 
-async function fetchSongs(searchText: string, page: number, size: number) {
+async function fetchSongs(searchGenreText: string, searchText: string, page: number, size: number) {
   const url = "http://127.0.0.1:8000/search";
-  const params = {
-    q: `lyrics:${searchText}`,
-    start: size * page,
-    rows: size,
-  };
+  if (searchGenreText == 'All' || searchGenreText == 'all') {
+    const params = {
+        q: `lyrics:${searchText}`,
+        start: size * page,
+        rows: size,
+    };
+  }
+  else {
+    const params = {
+      q1: `genres:${searchGenreText}`,
+      q2: `lyrics:${searchText}`,
+      start: size * page,
+      rows: size,
+    };
+  }
 
   const response = await axios.get(url, {
     params: params,
@@ -27,7 +38,7 @@ async function fetchSongs(searchText: string, page: number, size: number) {
   return response.data.response.docs;
 }
 
-export function Results({ visible, searchText }: ResultsProps) {
+export function Results({ visible, searchText, searchGenreText }: ResultsProps) {
   const [songs, setSongs] = useState<Song[]>([]);
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(10);
@@ -44,7 +55,7 @@ export function Results({ visible, searchText }: ResultsProps) {
   // )}, []);
 
   const fetchMoreSongs = () => {
-    fetchSongs(searchText, page, size)
+    fetchSongs(searchGenreText, searchText, page, size)
       .catch(console.error)
       .then((resp) => {
         setHasMore(resp.length > 0);
