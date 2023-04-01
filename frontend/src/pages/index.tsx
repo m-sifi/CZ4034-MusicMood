@@ -3,28 +3,20 @@ import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 import { IconSearch } from "@tabler/icons-react";
 import styles from "@/styles/Home.module.css";
-import Header from "@/components/Header";
+import Header from "@/components/header/Header";
 import { useState } from "react";
-import Results from "@/components/Results";
-import Search from "@/components/Search";
+import {SearchInputField, SearchResult} from "@/features/search";
 import { AnimatePresence, motion } from "framer-motion";
 
 export default function Home() {
   const [searchText, setSearchText] = useState("");
-  const [searchGenreText, setsearchGenreText] = useState("");
 
   function didSearch(): boolean {
     return searchText !== "";
   }
-  function didSearchGenre(): boolean {
-    return true;
-  }
 
   function getSearchTerm(value: string) {
     setSearchText(value);
-  }
-  function getSearchGenreTerm(value: string) {
-    setsearchGenreText(value);
   }
 
   return (
@@ -39,7 +31,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <AnimatePresence mode="popLayout">
-        <motion.div className={`h-screen bg-gradient-to-r from-positive to-negative ${styles.main}`}>
+        <motion.div className={`h-screen bg-gradient-to-r from-positive to-negative overflow-y-hidden ${styles.main}`}>
           <motion.div
             layout
             initial={{ opacity: 0 }}
@@ -64,16 +56,13 @@ export default function Home() {
               stiffness: 260,
               damping: 20,
             }}
-            className={`overflow-hidden flex flex-col py-auto px-24 pb-8 justify-center items-center`}
+            className={`overflow-hidden flex flex-col px-24 justify-center items-center`}
           >
-            {!didSearchGenre() && <HeaderGenre visible={!didSearchGenre()} />}
-            {didSearchGenre() && !didSearch() && <HeaderSong visible={!didSearch()} />}
-            <Search active={!didSearchGenre() && !didSearch()} value={searchGenreText} onChange={(g) => getSearchGenreTerm(g)} />
-            <Search active={didSearchGenre() && !didSearch()} value={searchText} onChange={(e) => getSearchTerm(e)} />
+            <SearchInputField active={!didSearch()} value={searchText} onChange={(e) => getSearchTerm(e)} />
 
             {/*SHOWS RESULTS PAGE BASED ON SEARCH */}
-            {didSearchGenre() && didSearch() && (
-            <Results visible={didSearchGenre() && didSearch()} searchGenreText={searchGenreText} searchText={searchText} />
+            {didSearch() && (
+              <SearchResult page={0} size={10} visible={didSearch()} searchText={searchText} />
             )}
           </motion.div>
           <motion.div
