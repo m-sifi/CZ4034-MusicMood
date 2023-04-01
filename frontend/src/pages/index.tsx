@@ -21,7 +21,7 @@ export default function Home() {
     return searchText !== "";
   }
   function didSearchGenre(): boolean {
-    return searchGenreText !== "";
+    return true;
   }
 
   function getSearchTerm(value: string) {

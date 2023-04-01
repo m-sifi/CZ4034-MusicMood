@@ -15,21 +15,16 @@ interface ResultsProps {
 
 async function fetchSongs(searchGenreText: string, searchText: string, page: number, size: number) {
   const url = "http://127.0.0.1:8000/search";
-  if (searchGenreText == 'All' || searchGenreText == 'all') {
-    const params = {
-        q: `lyrics:${searchText}`,
-        start: size * page,
-        rows: size,
-    };
-  }
-  else {
-    const params = {
-      q1: `genres:${searchGenreText}`,
-      q2: `lyrics:${searchText}`,
+
+  const genreSearch = (searchGenreText.toLowerCase() == 'all' || searchGenreText === '') ? `genres:*` : `genres:${searchGenreText}`;
+  const lyricsSearch = (searchGenreText === '') ? `lyrics:*` : `lyrics:${searchText}`;
+
+  let params  = {
+      q: genreSearch,
+      qf: lyricsSearch,
       start: size * page,
       rows: size,
-    };
-  }
+  };
 
   const response = await axios.get(url, {
     params: params,
