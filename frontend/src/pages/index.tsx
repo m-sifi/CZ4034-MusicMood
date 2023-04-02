@@ -7,6 +7,7 @@ import Header from "@/components/header/Header";
 import { useState } from "react";
 import {SearchInputField, SearchResult} from "@/features/search";
 import { AnimatePresence, motion } from "framer-motion";
+import { MoodLabel } from "@/features/classification";
 
 export default function Home() {
   const [searchText, setSearchText] = useState("");
@@ -56,9 +57,13 @@ export default function Home() {
               stiffness: 260,
               damping: 20,
             }}
-            className={`overflow-hidden flex flex-col px-24 justify-center items-center`}
+            className={`overflow-hidden max-h-5/6 flex flex-col px-24 justify-center items-center`}
           >
-            <SearchInputField active={!didSearch()} value={searchText} onChange={(e) => getSearchTerm(e)} />
+            <SearchInputField active={true} value={searchText} onChange={(e) => getSearchTerm(e)} />
+
+            {didSearch() && (
+              <MoodLabel lyrics={searchText} />
+            )}
 
             {/*SHOWS RESULTS PAGE BASED ON SEARCH */}
             {didSearch() && (
