@@ -60,11 +60,25 @@ def search(q: str, rows: int, start: int):
     res = res.json()
 
     for song in res["response"]["docs"]:
-        song["mood"] = classification["mood"]
+        song["_version_"] = 0
+        song["mood"] = {"set": classification["mood"]}
 
     update_document(res["response"]["docs"])
 
-    return res["response"]["docs"]
+    for song in res["response"]["docs"]:
+        song["_version_"] = 0
+        song["mood"] = classification["mood"]
+
+    return res["response"]
+
+# simple wrapper hitting solrs query endpoint
+@app.get("/mood/list")
+def search(q: str, rows: int, start: int):
+    res = requests.get("http://localhost:8983/solr/music/select",
+                       params={"q": f"mood:{q}", "rows": rows, "start": start})
+    
+    res = res.json()
+    return res["response"]
 
 # endpoint that takes in audio (mp3) and uses OpenAI Whisper to return the embedded text
 @app.post("/uploadAudio")

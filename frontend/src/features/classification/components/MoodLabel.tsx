@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getMood } from "../hooks";
+import Link from "next/link";
 
 interface MoodLabelProps {
   lyrics: string;
@@ -34,7 +35,7 @@ export function MoodLabel({ lyrics }: MoodLabelProps) {
   return (
     <div className="container w-5/6 mx-auto my-4 text-center bg-neutral-50 py-4 rounded-lg">
       <h1 className="text-4xl font-semibold leading-none tracking-tight text-gray-700">
-        Your search &quot;<span className="text-ellipsis">{lyrics}</span>&quot; has a mood of <span className={`font-bold ${getMoodColor(mood)}`}>{mood}</span>
+        Your search &quot;<span className="text-ellipsis">{lyrics}</span>&quot; has a mood of <Link href={`/mood/${mood}`}><span className={`font-bold ${getMoodColor(mood)}`}>{mood}</span></Link>
       </h1>
     </div>
   );

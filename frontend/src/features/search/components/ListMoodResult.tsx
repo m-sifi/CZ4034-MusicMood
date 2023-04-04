@@ -1,53 +1,55 @@
 import { motion } from "framer-motion";
 import SearchItem from "./SearchItem";
 import { Song as SelectedSong } from "@/components/song";
-import { fetchSongs } from "../hooks";
+import {  fetchSongsByMood } from "../hooks";
 import InfiniteScroll from "react-infinite-scroller";
 import { useEffect, useState } from "react";
 import { Song } from "@/components/song";
+import { useRouter } from "next/router";
 import { getMoodColor } from "@/features/classification";
 
-
-interface SongListProps {
-  searchText: string;
+interface ListMoodProps {
   page: number;
   size: number;
   visible: boolean;
 }
 
-export function SearchResult({
-  searchText,
-  page,
-  size,
-  visible,
-}: SongListProps) {
+export function ListMoodResult({ page, size, visible }: ListMoodProps) {
+
+  const router = useRouter();
+ 
+
   const [song, setSong] = useState<Song>(null);
   const [songs, setSongs] = useState<Song[]>([]);
-  const [search, setSearchText] = useState(searchText);
   const [pageIndex, setPage] = useState(page);
   const [pageSize, setSize] = useState(size);
   const [hasMore, setHasMore] = useState(true);
+  const [count, setCount] = useState(0);
+  const [currentMood, setMood] = useState("");
+
+  const { mood } = router.query;
 
   const fetchMoreSongs = () => {
-    console.log(pageIndex, pageSize);
-    fetchSongs(search, pageIndex, pageSize)
-      .catch(console.error)
+    console.log(mood, pageIndex, pageSize);
+    if(mood) {
+      fetchSongsByMood(mood, pageIndex, pageSize)
+      .catch((e) => {
+        console.error(e);
+        setSongs([]);
+      })
       .then((resp) => {
         console.log(resp);
+        setCount(resp.numFound);
         setHasMore(resp.docs.length > 0);
         setSongs([...songs, ...resp.docs]);
         setPage(pageIndex + 1);
       });
+    }
   };
-
-  useEffect(() => {
-    setSongs([]);
-    setPage(0);
-    fetchMoreSongs();
-  }, [search, searchText]);
 
   return (
     <>
+      <h1 className="text-2xl w-full rounded-md p-2 bg-neutral-50 text-center font-semibold">Found {count} <span className={`font-bold ${getMoodColor(mood || "")}`}>{mood}</span> songs</h1>
       {visible && (
         <motion.div className="grid grid-cols-search gap-3 w-screen h-[800px] p-8">
           <motion.div
@@ -71,11 +73,11 @@ export function SearchResult({
               ))}
             </InfiniteScroll>
           </motion.div>
-          { song && <SelectedSong song={song} />}
+          {song && <SelectedSong song={song} />}
         </motion.div>
       )}
     </>
   );
 }
 
-export default SearchResult;
+export default ListMoodResult;
