@@ -78,6 +78,11 @@ def search(q: str, rows: int, start: int):
                        params={"q": f"mood:{q}", "rows": rows, "start": start})
     
     res = res.json()
+
+    for song in res["response"]["docs"]:
+        mood = song["mood"][0]
+        song["mood"] = mood
+
     return res["response"]
 
 # endpoint that takes in audio (mp3) and uses OpenAI Whisper to return the embedded text
