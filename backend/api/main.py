@@ -9,6 +9,8 @@ import requests
 import openai
 import tempfile
 
+from solr import update_document
+
 SONG_DATAFRAME = pd.read_csv("../assets/spotify_songs.csv")
 
 OPENAI_API_KEY = ""
@@ -53,7 +55,16 @@ def get_mood(q:str):
 def search(q: str, rows: int, start: int):
     res = requests.get("http://localhost:8983/solr/music/select",
                        params={"q": q, "rows": rows, "start": start})
-    return res.json()
+    
+    classification = get_mood(q)
+    res = res.json()
+
+    for song in res["response"]["docs"]:
+        song["mood"] = classification["mood"]
+
+    update_document(res["response"]["docs"])
+
+    return res["response"]["docs"]
 
 # endpoint that takes in audio (mp3) and uses OpenAI Whisper to return the embedded text
 @app.post("/uploadAudio")
@@ -69,3 +80,4 @@ async def uploadAudio(audio: UploadFile = File(...)):
         print(result["text"])
         return {"text": result["text"]}
     
+

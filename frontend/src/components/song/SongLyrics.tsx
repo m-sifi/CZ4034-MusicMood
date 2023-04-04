@@ -15,7 +15,7 @@ export function SongLyrics({id} : SongLyricsProps) {
             console.log(resp);
             setLyrics(resp);
         });
-    }, []);
+    }, [id]);
 
     return (
         <div className="px-8 space-y-2">

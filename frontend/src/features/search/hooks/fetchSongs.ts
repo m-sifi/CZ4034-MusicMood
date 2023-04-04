@@ -16,5 +16,5 @@ export async function fetchSongs(
     params: params,
   });
 
-  return response.data.response.docs;
+  return response.data;
 }

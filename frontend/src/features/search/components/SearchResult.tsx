@@ -3,7 +3,7 @@ import SearchItem from "./SearchItem";
 import { Song as SelectedSong } from "@/components/song";
 import { fetchSongs } from "../hooks";
 import InfiniteScroll from "react-infinite-scroller";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Song } from "@/components/song";
 
 function SongItem(song: Song) {
@@ -39,11 +39,18 @@ export function SearchResult({
     fetchSongs(search, pageIndex, pageSize)
       .catch(console.error)
       .then((resp) => {
+        console.log(resp);
         setHasMore(resp.length > 0);
         setSongs([...songs, ...resp]);
         setPage(pageIndex + 1);
       });
   };
+
+  useEffect(() => {
+    setSongs([]);
+    setPage(0);
+    fetchMoreSongs();
+  }, [search, searchText]);
 
   return (
     <>
