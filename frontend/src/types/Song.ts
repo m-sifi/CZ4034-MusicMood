@@ -11,5 +11,6 @@ export interface Song {
   images: string;
   explicit: boolean;
   popularity: number;
+  mood: string;
   version: number;
 }
