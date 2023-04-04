@@ -28,7 +28,7 @@ export function SearchItem({ song, onClick }: SearchItemProps) {
       </div>
       <div className="pl-4">
         <h5 className="text-lg text-gray-900 font-semibold">{song.title[0]}</h5>
-        <p className="text-sm text-gray-600">{song.artist[0]} <Mood mood={song.mood[0]} /></p>
+        <p className="text-sm text-gray-600">{song.artist[0]} <Mood mood={song.mood} /></p>
       </div>
     </motion.div>
   );
