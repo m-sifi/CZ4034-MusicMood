@@ -5,12 +5,13 @@ import { IconSearch } from "@tabler/icons-react";
 import styles from "@/styles/Home.module.css";
 import Header from "@/components/header/Header";
 import { useState } from "react";
-import {SearchInputField, SearchResult} from "@/features/search";
+import { SearchInputField, SearchResult } from "@/features/search";
 import { AnimatePresence, motion } from "framer-motion";
 import { MoodLabel } from "@/features/classification";
 
 export default function Home() {
   const [searchText, setSearchText] = useState("");
+  const [spellCheck, setSpellCheck] = useState({});
 
   function didSearch(): boolean {
     return searchText !== "";
@@ -32,7 +33,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <AnimatePresence mode="popLayout">
-        <motion.div className={`h-screen bg-gradient-to-r from-positive to-negative overflow-y-hidden ${styles.main}`}>
+        <motion.div
+          className={`h-screen bg-gradient-to-r from-positive to-negative overflow-y-hidden ${styles.main}`}
+        >
           <motion.div
             layout
             initial={{ opacity: 0 }}
@@ -52,22 +55,32 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ 
+            transition={{
               type: "spring",
               stiffness: 260,
               damping: 20,
             }}
             className={`overflow-hidden max-h-5/6 flex flex-col px-24 justify-center items-center`}
           >
-            <SearchInputField active={true} value={searchText} onChange={(e) => getSearchTerm(e)} />
+            <SearchInputField
+              active={true}
+              value={searchText}
+              onChange={(e) => getSearchTerm(e)}
+            />
 
             {didSearch() && (
-              <MoodLabel lyrics={searchText} />
+              <MoodLabel lyrics={searchText} spellCheck={spellCheck} />
             )}
 
             {/*SHOWS RESULTS PAGE BASED ON SEARCH */}
             {didSearch() && (
-              <SearchResult page={0} size={10} visible={didSearch()} searchText={searchText} />
+              <SearchResult
+                page={0}
+                size={10}
+                visible={didSearch()}
+                searchText={searchText}
+                setSpellCheck={setSpellCheck}
+              />
             )}
           </motion.div>
           <motion.div
@@ -75,14 +88,13 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ 
+            transition={{
               type: "spring",
               stiffness: 260,
               damping: 20,
             }}
             className={`overflow-hidden flex flex-col px-24 justify-bottom items-center bg-gradient-to-r from-positive to-negative ${styles.main}`}
-            >
-          </motion.div>
+          ></motion.div>
         </motion.div>
       </AnimatePresence>
     </>

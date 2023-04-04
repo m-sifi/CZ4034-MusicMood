@@ -18,8 +18,8 @@ MODEL_ID = "whisper-1"
 
 CLASSIFICATION_MODEL_NAME = "juliensimon-autonlp-song-lyrics"
 
-model = AutoModelForSequenceClassification.from_pretrained(f"../models/{CLASSIFICATION_MODEL_NAME}/")
-tokenizer = AutoTokenizer.from_pretrained(f"../models/{CLASSIFICATION_MODEL_NAME}/")
+model = AutoModelForSequenceClassification.from_pretrained(f"../models/{CLASSIFICATION_MODEL_NAME}/", ignore_mismatched_sizes=True)
+tokenizer = AutoTokenizer.from_pretrained(f"../models/{CLASSIFICATION_MODEL_NAME}/", ignore_mismatched_sizes=True)
 
 app = FastAPI()
 
@@ -53,11 +53,24 @@ def get_mood(q:str):
 # simple wrapper hitting solrs query endpoint
 @app.get("/search")
 def search(q: str, rows: int, start: int):
-    res = requests.get("http://localhost:8983/solr/music/select",
+    res = requests.get("http://localhost:8983/solr/music/spell",
                        params={"q": q, "rows": rows, "start": start})
     
     classification = get_mood(q)
     res = res.json()
+
+    # # spellcheck for when there are no results
+    # if len(res["response"]["docs"]) == 0 and start == 0:
+
+    #     # if there is no spelling error but it is still empty, just return nothing
+    #     if res["spellcheck"]["correctlySpelled"]: return []
+
+    #     # if it is spelt wrong but there are no suggestions, return nothing
+    #     if res["spellcheck"]["suggestions"][1]["numFound"] == 0: return []
+
+    #     # format: {"word": __, "freq": __}
+    #     print(res["spellcheck"]["suggestions"][1]["suggestion"][0])
+    #     return res["spellcheck"]["suggestions"][1]["suggestion"][0]
 
     for song in res["response"]["docs"]:
         song["_version_"] = 0
@@ -69,6 +82,7 @@ def search(q: str, rows: int, start: int):
         song["_version_"] = 0
         song["mood"] = classification["mood"]
 
+    print(res["response"]["numFound"])
     return res["response"]
 
 # simple wrapper hitting solrs query endpoint

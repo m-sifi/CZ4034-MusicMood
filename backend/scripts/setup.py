@@ -4,7 +4,7 @@ from typing import List, Dict, Any
 import csv
 import re
 
-from constants import HOST_URL, MUSIC_SCHEMA, FLOAT_COLS, BATCH_SIZE
+from constants import HOST_URL, MUSIC_SCHEMA, FLOAT_COLS, BATCH_SIZE, SPELLCHECK_BODY
 
 
 """
@@ -116,6 +116,25 @@ def add_data(collection_name: str) -> None:
         else:
             print(f"Error adding rows: {response.status_code} - {response.text}")
             
+
+"""
+spellcheck: adds spellcheck to our configuration
+
+Args:
+    collection_name (str): name of collection
+"""
+def spellcheck(collection_name):
+    body = SPELLCHECK_BODY
+    url = HOST_URL + f"solr/{collection_name}/config"
+    response = requests.post(url, data=json.dumps(body))
+    if response.status_code == 200:
+        print(f"Successfully added spellcheck")
+    else:
+        print(f"Error adding spellcheck: status code {response.status_code}")
+        print(response.content)
+
 # create_collection("music")
 # define_schema("music", MUSIC_SCHEMA)
-add_data("music")
+# add_data("music")
+spellcheck("music")
+

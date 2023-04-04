@@ -7,12 +7,12 @@ import { useEffect, useState } from "react";
 import { Song } from "@/components/song";
 import { getMoodColor } from "@/features/classification";
 
-
 interface SongListProps {
   searchText: string;
   page: number;
   size: number;
   visible: boolean;
+  setSpellCheck: (value: { name: string; freq: number } | {}) => void;
 }
 
 export function SearchResult({
@@ -20,6 +20,7 @@ export function SearchResult({
   page,
   size,
   visible,
+  setSpellCheck,
 }: SongListProps) {
   const [song, setSong] = useState<Song>(null);
   const [songs, setSongs] = useState<Song[]>([]);
@@ -33,7 +34,19 @@ export function SearchResult({
     fetchSongs(search, pageIndex, pageSize)
       .catch(console.error)
       .then((resp) => {
+        // no results; this is what should happen when we spellcheck
         console.log(resp);
+        if (
+          typeof resp === "object" &&
+          resp !== null &&
+          typeof resp.word == "string" &&
+          typeof resp.freq === "number"
+        ) {
+          setSpellCheck(resp);
+          setHasMore(false);
+          return;
+        }
+        setSpellCheck({});
         setHasMore(resp.docs.length > 0);
         setSongs([...songs, ...resp.docs]);
         setPage(pageIndex + 1);
@@ -71,7 +84,7 @@ export function SearchResult({
               ))}
             </InfiniteScroll>
           </motion.div>
-          { song && <SelectedSong song={song} />}
+          {song && <SelectedSong song={song} />}
         </motion.div>
       )}
     </>
