@@ -59,18 +59,18 @@ def search(q: str, rows: int, start: int):
     classification = get_mood(q)
     res = res.json()
 
-    # # spellcheck for when there are no results
-    # if len(res["response"]["docs"]) == 0 and start == 0:
+    # spellcheck for when there are no results
+    if len(res["response"]["docs"]) == 0 and start == 0:
 
-    #     # if there is no spelling error but it is still empty, just return nothing
-    #     if res["spellcheck"]["correctlySpelled"]: return []
+        # if there is no spelling error but it is still empty, just return nothing
+        if res["spellcheck"]["correctlySpelled"]: return []
 
-    #     # if it is spelt wrong but there are no suggestions, return nothing
-    #     if res["spellcheck"]["suggestions"][1]["numFound"] == 0: return []
+        # if it is spelt wrong but there are no suggestions, return nothing
+        if res["spellcheck"]["suggestions"][1]["numFound"] == 0: return []
 
-    #     # format: {"word": __, "freq": __}
-    #     print(res["spellcheck"]["suggestions"][1]["suggestion"][0])
-    #     return res["spellcheck"]["suggestions"][1]["suggestion"][0]
+        # format: {"word": __, "freq": __}
+        print(res["spellcheck"]["suggestions"][1]["suggestion"][0])
+        return res["spellcheck"]["suggestions"][1]["suggestion"][0]
 
     for song in res["response"]["docs"]:
         song["_version_"] = 0
