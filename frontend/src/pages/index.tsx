@@ -9,10 +9,19 @@ import { SearchInputField, SearchResult } from "@/features/search";
 import { AnimatePresence, motion } from "framer-motion";
 import { MoodLabel } from "@/features/classification";
 import { useRouter } from 'next/router'
+
+export function useQuery() {
+  const router = useRouter();
+  const hasQueryParams =
+    /\[.+\]/.test(router.route) || /\?./.test(router.asPath);
+  const ready = !hasQueryParams || Object.keys(router.query).length > 0;
+  if (!ready) return null;
+  return router.query;
+}
+
 export default function Home() {
 
-  const router = useRouter();
-  const searchQuery = router.query.search;
+  const query = useQuery();
   
   const [searchText, setSearchText] = useState<String>("");
   const [spellCheck, setSpellCheck] = useState({});
@@ -26,11 +35,11 @@ export default function Home() {
   }
   
   useEffect(() => {
-    if(!searchQuery) {
-      return;
-    }
-    setSearchText(searchQuery);
-  }, [searchQuery])
+    if(!query) return;
+
+    if(query.search)
+      setSearchText(query.search);
+  }, [query]);
 
 
   return (
@@ -77,7 +86,7 @@ export default function Home() {
             <SearchInputField
               active={true}
               value={searchText}
-              onChange={(e) => getSearchTerm(e)}
+              onChange={(e) => setSearchText(e)}
             />
 
             {didSearch() && (

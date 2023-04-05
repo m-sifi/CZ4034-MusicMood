@@ -27,6 +27,7 @@ function getMoodColor(mood: string) {
 }
 
 function autocorrectLyrics(lyrics: string, spellcheck: SpellCheck) {
+  
   if(lyrics.includes(spellcheck.suggestion))
     return lyrics.replace(spellcheck.suggestion, spellcheck.word);
 
@@ -50,8 +51,10 @@ export function MoodLabel({ lyrics, spellCheck }: MoodLabelProps) {
 
   const corrected =autocorrectLyrics(lyrics, spellCheck);
 
-  const onClick = () => {
-    router.reload(window.location.pathname);
+  const onClick = (e : any) => {
+    e.preventDefault()
+    router.push({ pathname: "/", query: {"search": corrected}})
+    router.reload();
   }
 
   return (
@@ -67,7 +70,7 @@ export function MoodLabel({ lyrics, spellCheck }: MoodLabelProps) {
       ) : (
         <h1 className="text-4xl font-semibold leading-none tracking-tight text-gray-700">
           Your search &quot;<span className="text-ellipsis">{lyrics}</span>
-          &quot; yielded 0 results. <br/>Did you mean <Link href={{ pathname: "/", query: {"search": corrected}}} onClick={onClick}>&quot;{corrected}&quot;</Link>
+          &quot; yielded 0 results. <br/>Did you mean <Link href={{ pathname: "/", query: {"search": corrected}}}>&quot;{corrected}&quot;</Link>
           with {spellCheck.freq} results?
         </h1>
       )}

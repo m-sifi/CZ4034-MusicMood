@@ -24,14 +24,13 @@ export function SearchResult({
 }: SongListProps) {
   const [song, setSong] = useState<Song>(null);
   const [songs, setSongs] = useState<Song[]>([]);
-  const [search, setSearchText] = useState(searchText);
   const [pageIndex, setPage] = useState(page);
   const [pageSize, setSize] = useState(size);
   const [hasMore, setHasMore] = useState(true);
 
   const fetchMoreSongs = () => {
-    console.log(search, pageIndex, pageSize);
-    fetchSongs(search, pageIndex, pageSize)
+    console.log(searchText, pageIndex, pageSize);
+    fetchSongs(searchText, pageIndex, pageSize)
       .catch(console.error)
       .then((resp) => {
         // no results; this is what should happen when we spellcheck
@@ -59,7 +58,7 @@ export function SearchResult({
     setSongs([]);
     setPage(0);
     fetchMoreSongs();
-  }, [search, searchText]);
+  }, [searchText]);
 
   return (
     <>
