@@ -9,15 +9,7 @@ import { SearchInputField, SearchResult } from "@/features/search";
 import { AnimatePresence, motion } from "framer-motion";
 import { MoodLabel } from "@/features/classification";
 import { useRouter } from 'next/router'
-
-export function useQuery() {
-  const router = useRouter();
-  const hasQueryParams =
-    /\[.+\]/.test(router.route) || /\?./.test(router.asPath);
-  const ready = !hasQueryParams || Object.keys(router.query).length > 0;
-  if (!ready) return null;
-  return router.query;
-}
+import useQuery from "../hooks/useQuery";
 
 export default function Home() {
 
@@ -25,19 +17,36 @@ export default function Home() {
   
   const [searchText, setSearchText] = useState<String>("");
   const [spellCheck, setSpellCheck] = useState({});
+  const [mood, setMood] = useState("");
 
   function didSearch(): boolean {
     return searchText !== "";
   }
 
   function getSearchTerm(value: string) {
+    if(value == "") setMood("");
     setSearchText(value);
+  }
+
+  function moodTransition(mood: string) {
+    switch (mood.toLowerCase()) {
+      case "happy":
+        return "from-happy to-happy-alt";
+      case "sad":
+        return "from-sad to-sad-alt";
+      case "angry":
+        return "from-angry to-angry-alt";
+      case "relaxed":
+        return "from-relaxted to-relaxed-alt";
+      default:
+        return "from-positive to-negative";
+    }
   }
   
   useEffect(() => {
     if(!query) return;
 
-    if(query.search)
+    if(query.search) 
       setSearchText(query.search);
   }, [query]);
 
@@ -55,7 +64,7 @@ export default function Home() {
       </Head>
       <AnimatePresence mode="popLayout">
         <motion.div
-          className={`h-screen bg-gradient-to-r from-positive to-negative overflow-y-hidden ${styles.main}`}
+          className={`h-screen bg-gradient-to-r ${moodTransition(mood)} overflow-y-hidden ${styles.main}`}
         >
           <motion.div
             layout
@@ -86,11 +95,11 @@ export default function Home() {
             <SearchInputField
               active={true}
               value={searchText}
-              onChange={(e) => setSearchText(e)}
+              onChange={(e) => getSearchTerm(e) }
             />
 
             {didSearch() && (
-              <MoodLabel lyrics={searchText} spellCheck={spellCheck} />
+              <MoodLabel lyrics={searchText} spellCheck={spellCheck} updateMood={setMood}/>
             )}
 
             {/*SHOWS RESULTS PAGE BASED ON SEARCH */}

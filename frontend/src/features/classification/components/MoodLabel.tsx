@@ -9,6 +9,7 @@ interface SpellCheck {
 interface MoodLabelProps {
   lyrics: string;
   spellCheck: SpellCheck;
+  updateMood: (mood:string) => void;
 }
 
 function getMoodColor(mood: string) {
@@ -34,7 +35,7 @@ function autocorrectLyrics(lyrics: string, spellcheck: SpellCheck) {
   return spellcheck.word;
 }
 
-export function MoodLabel({ lyrics, spellCheck }: MoodLabelProps) {
+export function MoodLabel({ lyrics, spellCheck, updateMood }: MoodLabelProps) {
   const [mood, setMood] = useState<string>("");
   const router = useRouter();
 
@@ -46,6 +47,7 @@ export function MoodLabel({ lyrics, spellCheck }: MoodLabelProps) {
       .then((resp) => {
 
         setMood(resp.mood);
+        updateMood(resp.mood);
       });
   }, [lyrics, mood]);
 
