@@ -4,13 +4,17 @@ const inter = Inter({ subsets: ["latin"] });
 import { IconSearch } from "@tabler/icons-react";
 import styles from "@/styles/Home.module.css";
 import Header from "@/components/header/Header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SearchInputField, SearchResult } from "@/features/search";
 import { AnimatePresence, motion } from "framer-motion";
 import { MoodLabel } from "@/features/classification";
-
+import { useRouter } from 'next/router'
 export default function Home() {
-  const [searchText, setSearchText] = useState("");
+
+  const router = useRouter();
+  const searchQuery = router.query.search;
+  
+  const [searchText, setSearchText] = useState<String>("");
   const [spellCheck, setSpellCheck] = useState({});
 
   function didSearch(): boolean {
@@ -20,6 +24,14 @@ export default function Home() {
   function getSearchTerm(value: string) {
     setSearchText(value);
   }
+  
+  useEffect(() => {
+    if(!searchQuery) {
+      return;
+    }
+    setSearchText(searchQuery);
+  }, [searchQuery])
+
 
   return (
     <>

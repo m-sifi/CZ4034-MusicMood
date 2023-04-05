@@ -72,6 +72,7 @@ export function SearchInputField({ active, onChange, value }: SearchInputFieldPr
           type="text"
           onChange={(e) => setSearchValue(e.target.value)}
           className="border-0 flex-1 bg-transparent text-gray-600 border-transparent focus:border-transparent focus:ring-0"
+          value={searchValue}
         />
         <button
           className="bg-red-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mr-2"

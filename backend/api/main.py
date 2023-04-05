@@ -54,33 +54,33 @@ def get_mood(q:str):
 @app.get("/search")
 def search(q: str, rows: int, start: int):
     res = requests.get("http://localhost:8983/solr/music/spell",
-                       params={"q": q, "rows": rows, "start": start})
+                       params={"q": q, "rows": rows, "start": start, "spellcheck": "true", "spellcheck.build": "true"})
     
     classification = get_mood(q)
     res = res.json()
 
     # spellcheck for when there are no results
     if len(res["response"]["docs"]) == 0 and start == 0:
+        print(res)
 
         # if there is no spelling error but it is still empty, just return nothing
         if res["spellcheck"]["correctlySpelled"]: return []
 
         # if it is spelt wrong but there are no suggestions, return nothing
-        if res["spellcheck"]["suggestions"][1]["numFound"] == 0: return []
+        if len(res["spellcheck"]["suggestions"]) == 0: return []
 
         # format: {"word": __, "freq": __}
         print(res["spellcheck"]["suggestions"][1]["suggestion"][0])
-        return res["spellcheck"]["suggestions"][1]["suggestion"][0]
+        result = res["spellcheck"]["suggestions"][1]["suggestion"][0]
+        result["suggestion"] = res["spellcheck"]["suggestions"][0]
 
-    for song in res["response"]["docs"]:
-        song["_version_"] = 0
-        song["mood"] = {"set": classification["mood"]}
-
-    update_document(res["response"]["docs"])
+        return result
 
     for song in res["response"]["docs"]:
         song["_version_"] = 0
         song["mood"] = classification["mood"]
+
+    update_document(res["response"]["docs"])
 
     print(res["response"]["numFound"])
     return res["response"]

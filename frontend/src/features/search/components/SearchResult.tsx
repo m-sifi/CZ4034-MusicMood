@@ -20,7 +20,7 @@ export function SearchResult({
   page,
   size,
   visible,
-  setSpellCheck,
+  setSpellCheck
 }: SongListProps) {
   const [song, setSong] = useState<Song>(null);
   const [songs, setSongs] = useState<Song[]>([]);
@@ -30,7 +30,7 @@ export function SearchResult({
   const [hasMore, setHasMore] = useState(true);
 
   const fetchMoreSongs = () => {
-    console.log(pageIndex, pageSize);
+    console.log(search, pageIndex, pageSize);
     fetchSongs(search, pageIndex, pageSize)
       .catch(console.error)
       .then((resp) => {
@@ -42,6 +42,7 @@ export function SearchResult({
           typeof resp.word == "string" &&
           typeof resp.freq === "number"
         ) {
+          console.log(resp);
           setSpellCheck(resp);
           setHasMore(false);
           return;
@@ -52,6 +53,7 @@ export function SearchResult({
         setPage(pageIndex + 1);
       });
   };
+
 
   useEffect(() => {
     setSongs([]);
