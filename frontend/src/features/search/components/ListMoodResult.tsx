@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import SearchItem from "./SearchItem";
 import { Song as SelectedSong } from "@/components/song";
-import {  fetchSongsByMood } from "../hooks";
+import {  fetchSongsByMood, fetchWordCloud, fetchWordCloudByMood } from "../hooks";
 import InfiniteScroll from "react-infinite-scroller";
 import { useEffect, useState } from "react";
 import { Song } from "@/components/song";
@@ -12,9 +12,11 @@ interface ListMoodProps {
   page: number;
   size: number;
   visible: boolean;
+
+  setWordcloudData: (val: { value: string; freq: number }[]) => void;
 }
 
-export function ListMoodResult({ page, size, visible }: ListMoodProps) {
+export function ListMoodResult({ page, size, visible, setWordcloudData}: ListMoodProps) {
 
   const router = useRouter();
  
@@ -29,6 +31,20 @@ export function ListMoodResult({ page, size, visible }: ListMoodProps) {
 
   const { mood } = router.query;
 
+  const fetchWordCloudForMood = () => {
+    if(mood) {
+      fetchWordCloudByMood(mood)
+      .catch(console.error)
+      .then((resp) => {
+        console.log(resp);
+        resp = resp.filter((item: { value: string; freq: number }) => {
+          return /[a-zA-Z]/.test(item.value);
+        });
+        setWordcloudData(resp);
+      });
+    }
+  }
+
   const fetchMoreSongs = () => {
     console.log(mood, pageIndex, pageSize);
     if(mood) {
@@ -38,6 +54,7 @@ export function ListMoodResult({ page, size, visible }: ListMoodProps) {
         setSongs([]);
       })
       .then((resp) => {
+        fetchWordCloudForMood();
         console.log(resp);
         setCount(resp.numFound);
         setHasMore(resp.docs.length > 0);

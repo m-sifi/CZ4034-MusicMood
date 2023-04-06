@@ -50,3 +50,16 @@ export async function fetchSongsByMood(
 
   return response.data;
 }
+
+export async function fetchWordCloudByMood(searchText: string) {
+  const url = "http://localhost:8000/wordcloud";
+  const params = {
+    q: `mood:${searchText}`,
+  };
+
+  const response = await axios.get(url, {
+    params: params,
+  });
+
+  return response.data;
+}

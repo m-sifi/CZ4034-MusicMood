@@ -49,6 +49,9 @@ dependencies:
   react-media-recorder:
     specifier: ^1.6.6
     version: 1.6.6
+  react-tagcloud:
+    specifier: ^2.3.1
+    version: 2.3.1(react@18.2.0)
   typescript:
     specifier: 5.0.2
     version: 5.0.2
@@ -2321,6 +2324,10 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
+  /randomcolor@0.6.2:
+    resolution: {integrity: sha512-Mn6TbyYpFgwFuQ8KJKqf3bqqY9O1y37/0jgSK/61PUxV4QfIMv0+K2ioq8DfOjkBslcjwSzRfIDEXfzA9aCx7A==}
+    dev: false
+
   /react-dom@18.2.0(react@18.2.0):
     resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
     peerDependencies:
@@ -2368,6 +2375,18 @@ packages:
     dependencies:
       extendable-media-recorder: 6.6.10
       extendable-media-recorder-wav-encoder: 7.0.85
+    dev: false
+
+  /react-tagcloud@2.3.1(react@18.2.0):
+    resolution: {integrity: sha512-vWnPzx1bmR2ya7WEeqCbZGO8q/x0agOjxnXQGD9jg5OAyLqaKWAfArKypaoUVXYDyjABcZg5BDu8qLC9JRGDbg==}
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      prop-types: 15.8.1
+      randomcolor: 0.6.2
+      react: 18.2.0
+      seedrandom: 3.0.5
+      shuffle-array: 1.0.1
     dev: false
 
   /react@18.2.0:
@@ -2483,6 +2502,10 @@ packages:
     resolution: {integrity: sha512-d7wDPgDV3DDiqulJjKiV2865wKsJ34YI+NDREbm+FySq6WuKOikwyNQcm+doLAZ1O6ltdO0SeKle2xMpN3Brgw==}
     dev: false
 
+  /seedrandom@3.0.5:
+    resolution: {integrity: sha512-8OwmbklUNzwezjGInmZ+2clQmExQPvomqjL7LFqOYqtmuxRgQYqOD3mHaU+MvZn5FLUeVxVfQjwLZW/n/JFuqg==}
+    dev: false
+
   /semver@6.3.0:
     resolution: {integrity: sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==}
     hasBin: true
@@ -2506,6 +2529,10 @@ packages:
   /shebang-regex@3.0.0:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
+    dev: false
+
+  /shuffle-array@1.0.1:
+    resolution: {integrity: sha512-0TFRU8zVQaLatWKr0/czo19VyPNgb/a3sBc1GAjVfivfzEGaS54vueNgtAu/8/pW7EM/VF5fwq9zgpLdGyRmVw==}
     dev: false
 
   /side-channel@1.0.4:

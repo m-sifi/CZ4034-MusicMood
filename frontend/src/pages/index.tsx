@@ -20,6 +20,8 @@ export default function Home() {
   const [wordcloudData, setWordcloudData] = useState([]);
   const [mood, setMood] = useState("");
 
+  console.log("wordcloudData", wordcloudData);
+
   function didSearch(): boolean {
     return searchText !== "";
   }
@@ -107,7 +109,18 @@ export default function Home() {
                   updateMood={setMood}
                 />
                 {wordcloudData.length > 0 && (
-                  <TagCloud minSize={12} maxSize={35} tags={wordcloudData} />
+                  <div className="bg-neutral-50 p-4 w-2/3 rounded-md select-none">
+                    <TagCloud
+                      minSize={12}
+                      maxSize={35}
+                      tags={wordcloudData}
+                      colorOptions={{
+                        luminosity: "dark",
+                        format: "rgba",
+                        alpha: 0.8, // e.g. 'rgba(9, 1, 107, 0.5)',
+                      }}
+                    />
+                  </div>
                 )}
               </>
             )}

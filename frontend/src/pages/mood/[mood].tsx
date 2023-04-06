@@ -10,10 +10,12 @@ import { AnimatePresence, motion } from "framer-motion";
 import { MoodLabel } from "@/features/classification";
 import { useRouter } from "next/router";
 import ListMoodResult from "@/features/search/components/ListMoodResult";
+import { TagCloud } from "react-tagcloud";
 
 export default function Mood() {
   const router = useRouter();
   const [background, setBackground] = useState(moodTransition(""));
+  const [wordcloudData, setWordcloudData] = useState([]);
   const [mood, setMood] = useState("");
 
   function moodTransition(mood: string) {
@@ -82,20 +84,23 @@ export default function Mood() {
             className={`overflow-hidden max-h-5/6 flex flex-col px-24 justify-center items-center`}
           >
             {/*SHOWS RESULTS PAGE BASED ON SEARCH */}
-            <ListMoodResult page={0} size={10} visible={true} />
+            {wordcloudData.length > 0 && (
+                  <div className="bg-neutral-50 p-8 my-4 w-full rounded-md select-none">
+                    <TagCloud
+                      minSize={12}
+                      maxSize={35}
+                      tags={wordcloudData}
+                      colorOptions={{
+                        luminosity: "dark",
+                        format: "rgba",
+                        alpha: 0.8, // e.g. 'rgba(9, 1, 107, 0.5)',
+                      }}
+                    />
+                  </div>
+                )}
+            <ListMoodResult page={0} size={10} visible={true} setWordcloudData={setWordcloudData}/>
+
           </motion.div>
-          <motion.div
-            layout
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{
-              type: "spring",
-              stiffness: 260,
-              damping: 20,
-            }}
-            className={`overflow-hidden flex flex-col px-24 justify-bottom items-center bg-gradient-to-r ${background} ${styles.main}`}
-          ></motion.div>
         </motion.div>
       </AnimatePresence>
     </>

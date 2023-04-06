@@ -4,6 +4,8 @@ import torch
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
 from torch.nn import functional as F
 import pandas as pd
+import nltk
+from nltk.corpus import stopwords
 
 import requests
 import openai
@@ -24,6 +26,8 @@ tokenizer = AutoTokenizer.from_pretrained(f"../models/{CLASSIFICATION_MODEL_NAME
 app = FastAPI()
 
 origins = ["*"]
+
+nltk.download('stopwords')
 
 app.add_middleware(
     CORSMiddleware,
@@ -121,7 +125,7 @@ def wordcloud(q: str):
     suggestions = res["facet_counts"]["facet_fields"]["lyrics_wordcloud"]
     res = []
     for i in range(0, len(suggestions), 2):
-        if suggestions[i].lower() not in q:
+        if suggestions[i].lower() not in q and suggestions[i] not in stopwords.words('english'):
             res.append({
                 "value": suggestions[i].lower(), 
                 "count": suggestions[i + 1]}
