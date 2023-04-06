@@ -7,7 +7,7 @@ export async function fetchSongs(
 ) {
   const url = "http://localhost:8000/search";
   const params = {
-    q: `lyrics:${searchText}`,
+    q: `lyrics:(${searchText})`,
     start: size * page,
     rows: size,
   };
