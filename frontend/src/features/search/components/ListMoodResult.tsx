@@ -73,7 +73,7 @@ export function ListMoodResult({ page, size, visible }: ListMoodProps) {
               ))}
             </InfiniteScroll>
           </motion.div>
-          {song && <SelectedSong song={song} />}
+          {song && <SelectedSong song={song} searchText={""}/>}
         </motion.div>
       )}
     </>

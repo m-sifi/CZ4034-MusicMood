@@ -98,7 +98,7 @@ export function SearchResult({
               ))}
             </InfiniteScroll>
           </motion.div>
-          {song && <SelectedSong song={song} />}
+          {song && <SelectedSong song={song} searchText={searchText} />}
         </motion.div>
       )}
     </>

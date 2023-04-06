@@ -1,30 +1,41 @@
-import { useEffect, useState } from "react";
+import { createElement, useEffect, useState } from "react";
 import { getLyrics } from "../../hooks";
+import Highlighter from "react-highlight-words";
 
 interface SongLyricsProps {
-    id: string;
+  id: string;
+  searchText: string;
 }
 
-export function SongLyrics({id} : SongLyricsProps) {
-    const [lyrics, setLyrics] = useState<string[]>([]);
+function Highlight(text: string) {
+  return `<span class=\"text-yellow-500\>${text}</span>`;
+}
 
-    useEffect(() => {
-      getLyrics(id)
-        .catch(console.error)
-        .then((resp) => {
-            console.log(resp);
-            setLyrics(resp);
-        });
-    }, [id]);
+export function SongLyrics({ id, searchText }: SongLyricsProps) {
+  const [lyrics, setLyrics] = useState<string[]>([]);
 
-    return (
-        <div className="px-8 space-y-2">
-            { 
-                lyrics.map((line, index) => {
-                    return <p key={index}>{line}</p>
-                })
-            }
-        </div>
-    );
-    
+  useEffect(() => {
+    getLyrics(id)
+      .catch(console.error)
+      .then((resp) => {
+        setLyrics(resp);
+      });
+  }, [id]);
+
+  return (
+    <div className="px-8 space-y-2">
+      {lyrics.map((line, index) => {
+        return (
+            <p key={index}>
+            <Highlighter
+              highlightClassName="background-yellow-500"
+              searchWords={[searchText]}
+              autoEscape ={true}
+              textToHighlight={line}
+            />
+          </p>
+        );
+      })}
+    </div>
+  );
 }
