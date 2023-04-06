@@ -8,15 +8,16 @@ import { useEffect, useState } from "react";
 import { SearchInputField, SearchResult } from "@/features/search";
 import { AnimatePresence, motion } from "framer-motion";
 import { MoodLabel } from "@/features/classification";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 import useQuery from "../hooks/useQuery";
+import { TagCloud } from "react-tagcloud";
 
 export default function Home() {
-
   const query = useQuery();
-  
+
   const [searchText, setSearchText] = useState<String>("");
   const [spellCheck, setSpellCheck] = useState({});
+  const [wordcloudData, setWordcloudData] = useState([]);
   const [mood, setMood] = useState("");
 
   function didSearch(): boolean {
@@ -24,7 +25,7 @@ export default function Home() {
   }
 
   function getSearchTerm(value: string) {
-    if(value == "") setMood("");
+    if (value == "") setMood("");
     setSearchText(value);
   }
 
@@ -42,14 +43,12 @@ export default function Home() {
         return "from-positive to-negative";
     }
   }
-  
+
   useEffect(() => {
-    if(!query) return;
+    if (!query) return;
 
-    if(query.search) 
-      setSearchText(query.search);
+    if (query.search) setSearchText(query.search);
   }, [query]);
-
 
   return (
     <>
@@ -64,7 +63,9 @@ export default function Home() {
       </Head>
       <AnimatePresence mode="popLayout">
         <motion.div
-          className={`h-screen bg-gradient-to-r ${moodTransition(mood)} overflow-y-hidden ${styles.main}`}
+          className={`h-screen bg-gradient-to-r ${moodTransition(
+            mood
+          )} overflow-y-hidden ${styles.main}`}
         >
           <motion.div
             layout
@@ -95,11 +96,20 @@ export default function Home() {
             <SearchInputField
               active={true}
               value={searchText}
-              onChange={(e) => getSearchTerm(e) }
+              onChange={(e) => getSearchTerm(e)}
             />
 
             {didSearch() && (
-              <MoodLabel lyrics={searchText} spellCheck={spellCheck} updateMood={setMood}/>
+              <>
+                <MoodLabel
+                  lyrics={searchText}
+                  spellCheck={spellCheck}
+                  updateMood={setMood}
+                />
+                {wordcloudData.length > 0 && (
+                  <TagCloud minSize={12} maxSize={35} tags={wordcloudData} />
+                )}
+              </>
             )}
 
             {/*SHOWS RESULTS PAGE BASED ON SEARCH */}
@@ -110,6 +120,7 @@ export default function Home() {
                 visible={didSearch()}
                 searchText={searchText}
                 setSpellCheck={setSpellCheck}
+                setWordcloudData={setWordcloudData}
               />
             )}
           </motion.div>

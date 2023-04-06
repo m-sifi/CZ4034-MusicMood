@@ -113,4 +113,19 @@ async def uploadAudio(audio: UploadFile = File(...)):
         print(result["text"])
         return {"text": result["text"]}
     
+@app.get("/wordcloud")
+def wordcloud(q: str):
+    res = requests.get("http://localhost:8983/solr/music/select",
+                       params={"q": q, "rows": 0, "facet": "true", "facet.field": "lyrics_wordcloud"})
+    res = res.json()
+    suggestions = res["facet_counts"]["facet_fields"]["lyrics_wordcloud"]
+    res = []
+    for i in range(0, len(suggestions), 2):
+        if suggestions[i].lower() not in q:
+            res.append({
+                "value": suggestions[i].lower(), 
+                "count": suggestions[i + 1]}
+        )
+    return res
 
+    

@@ -19,6 +19,19 @@ export async function fetchSongs(
   return response.data;
 }
 
+export async function fetchWordCloud(searchText: string) {
+  const url = "http://localhost:8000/wordcloud";
+  const params = {
+    q: `lyrics:${searchText}`,
+  };
+
+  const response = await axios.get(url, {
+    params: params,
+  });
+
+  return response.data;
+}
+
 export async function fetchSongsByMood(
   searchText: string,
   page: number,
@@ -37,4 +50,3 @@ export async function fetchSongsByMood(
 
   return response.data;
 }
-

@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import SearchItem from "./SearchItem";
 import { Song as SelectedSong } from "@/components/song";
-import { fetchSongs } from "../hooks";
+import { fetchSongs, fetchWordCloud } from "../hooks";
 import InfiniteScroll from "react-infinite-scroller";
 import { useEffect, useState } from "react";
 import { Song } from "@/components/song";
@@ -12,7 +12,8 @@ interface SongListProps {
   page: number;
   size: number;
   visible: boolean;
-  setSpellCheck: (value: { name: string; freq: number } | {}) => void;
+  setSpellCheck: (val: { value: string; freq: number } | {}) => void;
+  setWordcloudData: (val: { value: string; freq: number }[]) => void;
 }
 
 export function SearchResult({
@@ -20,7 +21,8 @@ export function SearchResult({
   page,
   size,
   visible,
-  setSpellCheck
+  setSpellCheck,
+  setWordcloudData,
 }: SongListProps) {
   const [song, setSong] = useState<Song>(null);
   const [songs, setSongs] = useState<Song[]>([]);
@@ -53,15 +55,26 @@ export function SearchResult({
       });
   };
 
-
   useEffect(() => {
     setSongs([]);
     setPage(0);
     fetchMoreSongs();
+    fetchWordCloud(searchText)
+      .catch(console.error)
+      .then((resp) => {
+        console.log(resp);
+        resp = resp.filter((item: { value: string; freq: number }) => {
+          return /[a-zA-Z]/.test(item.value);
+        });
+        setWordcloudData(resp);
+      });
   }, [searchText]);
 
   return (
     <>
+      {/* {wordcloudData.length > 0 && (
+        <TagCloud minSize={12} maxSize={35} tags={wordcloudData} />
+      )} */}
       {visible && (
         <motion.div className="grid grid-cols-search gap-3 w-screen h-[800px] p-8">
           <motion.div

@@ -13,11 +13,12 @@ MUSIC_SCHEMA = [
     {"name": "genres", "type": "string", "multiValued": True},
     {"name": "explicit", "type": "boolean"},
     {"name": "popularity", "type": "pfloat"},
+    {"name": "lyrics_wordcloud", "type": "text_general"}
 ]
 
 FLOAT_COLS = ["acousticness", "danceability", "energy", "instrumentalness", "valence", "popularity"]
 
-BATCH_SIZE = 100
+BATCH_SIZE = 500
 
 SPELLCHECK_BODY = {
     "update-searchcomponent": {
