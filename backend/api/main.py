@@ -4,6 +4,8 @@ import torch
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
 from torch.nn import functional as F
 import pandas as pd
+import nltk
+from nltk.corpus import stopwords
 
 import requests
 import openai
@@ -18,12 +20,14 @@ MODEL_ID = "whisper-1"
 
 CLASSIFICATION_MODEL_NAME = "juliensimon-autonlp-song-lyrics"
 
-model = AutoModelForSequenceClassification.from_pretrained(f"../models/{CLASSIFICATION_MODEL_NAME}/")
-tokenizer = AutoTokenizer.from_pretrained(f"../models/{CLASSIFICATION_MODEL_NAME}/")
+model = AutoModelForSequenceClassification.from_pretrained(f"../models/{CLASSIFICATION_MODEL_NAME}/", ignore_mismatched_sizes=True)
+tokenizer = AutoTokenizer.from_pretrained(f"../models/{CLASSIFICATION_MODEL_NAME}/", ignore_mismatched_sizes=True)
 
 app = FastAPI()
 
 origins = ["*"]
+
+nltk.download('stopwords')
 
 app.add_middleware(
     CORSMiddleware,
@@ -53,22 +57,36 @@ def get_mood(q:str):
 # simple wrapper hitting solrs query endpoint
 @app.get("/search")
 def search(q: str, rows: int, start: int):
-    res = requests.get("http://localhost:8983/solr/music/select",
-                       params={"q": q, "rows": rows, "start": start})
+    res = requests.get("http://localhost:8983/solr/music/spell",
+                       params={"q": q, "rows": rows, "start": start, "spellcheck": "true", "spellcheck.build": "true"})
     
     classification = get_mood(q)
     res = res.json()
 
-    for song in res["response"]["docs"]:
-        song["_version_"] = 0
-        song["mood"] = {"set": classification["mood"]}
+    # spellcheck for when there are no results
+    if len(res["response"]["docs"]) == 0 and start == 0:
+        print(res)
 
-    update_document(res["response"]["docs"])
+        # if there is no spelling error but it is still empty, just return nothing
+        if res["spellcheck"]["correctlySpelled"]: return []
+
+        # if it is spelt wrong but there are no suggestions, return nothing
+        if len(res["spellcheck"]["suggestions"]) == 0: return []
+
+        # format: {"word": __, "freq": __}
+        print(res["spellcheck"]["suggestions"][1]["suggestion"][0])
+        result = res["spellcheck"]["suggestions"][1]["suggestion"][0]
+        result["suggestion"] = res["spellcheck"]["suggestions"][0]
+
+        return result
 
     for song in res["response"]["docs"]:
         song["_version_"] = 0
         song["mood"] = classification["mood"]
 
+    update_document(res["response"]["docs"])
+
+    print(res["response"]["numFound"])
     return res["response"]
 
 # simple wrapper hitting solrs query endpoint
@@ -99,4 +117,19 @@ async def uploadAudio(audio: UploadFile = File(...)):
         print(result["text"])
         return {"text": result["text"]}
     
+@app.get("/wordcloud")
+def wordcloud(q: str):
+    res = requests.get("http://localhost:8983/solr/music/select",
+                       params={"q": q, "rows": 0, "facet": "true", "facet.field": "lyrics_wordcloud"})
+    res = res.json()
+    suggestions = res["facet_counts"]["facet_fields"]["lyrics_wordcloud"]
+    res = []
+    for i in range(0, len(suggestions), 2):
+        if suggestions[i].lower() not in q and suggestions[i] not in stopwords.words('english'):
+            res.append({
+                "value": suggestions[i].lower(), 
+                "count": suggestions[i + 1]}
+        )
+    return res
 
+    

@@ -4,7 +4,7 @@ from typing import List, Dict, Any
 import csv
 import re
 
-from constants import HOST_URL, MUSIC_SCHEMA, FLOAT_COLS, BATCH_SIZE
+from constants import HOST_URL, MUSIC_SCHEMA, FLOAT_COLS, BATCH_SIZE, SPELLCHECK_BODY
 
 
 """
@@ -86,6 +86,7 @@ def clean_row(row: Dict[str, str]) -> Dict[str, Any]:
     # remove \n and extra spaces from lyrics
     row["lyrics"] = row["lyrics"].replace("\n", " ")
     row["lyrics"] = re.sub('\s+', ' ', row["lyrics"]).strip()
+    row["lyrics_wordcloud"] = row["lyrics"]
 
     return row
 
@@ -116,6 +117,190 @@ def add_data(collection_name: str) -> None:
         else:
             print(f"Error adding rows: {response.status_code} - {response.text}")
             
+
+"""
+spellcheck: adds spellcheck to our configuration
+
+Args:
+    collection_name (str): name of collection
+"""
+def spellcheck(collection_name):
+    body = SPELLCHECK_BODY
+    url = HOST_URL + f"solr/{collection_name}/config"
+    response = requests.post(url, data=json.dumps(body))
+    if response.status_code == 200:
+        print(f"Successfully added spellcheck")
+    else:
+        print(f"Error adding spellcheck: status code {response.status_code}")
+        print(response.content)
+
+def add_lyrics_field_type(collection_name):
+    body = {
+        "add-field-type": {
+            "name": "lyricsField",
+            "class": "solr.TextField",
+            "indexAnalyzer": {
+                "tokenizer": {
+                    "name": "standard"
+                },
+                "filters": [
+                    {
+                        "name": "stop",
+                        "ignoreCase": "true",
+                        "words": "lang/stopwords_en.txt"
+                    },
+                    {
+                        "name": "lowercase",
+                    },
+                    {
+                        "name": "englishPossessive",
+                    },
+                    {
+                        "name": "keywordMarker",
+                        "protected": "protwords.txt",
+                    },
+                    # {
+                    #     "name": "beiderMorse",
+                    #     "nameType": "GENERIC",
+                    # },
+                    {
+                        "name": "porterStem",
+                    }
+                ]
+            },
+            "queryAnalyzer": {
+                "tokenizer": {
+                    "name": "standard"
+                },
+                "filters": [
+                    {
+                        "name": "stop",
+                        "ignoreCase": "true",
+                        "words": "lang/stopwords_en.txt"
+                    },
+                    {
+                        "name": "lowercase",
+                    },
+                    {
+                        "name": "englishPossessive",
+                    },
+                    {
+                        "name": "keywordMarker",
+                        "protected": "protwords.txt",
+                    },
+                    # {
+                    #     "name": "beiderMorse",
+                    #     "nameType": "GENERIC",
+                    # },
+                    {
+                        "name": "porterStem",
+                    }
+                ]
+            }
+        }
+    }
+    headers = {'Content-type': 'application/json'}
+    url = HOST_URL + f"api/collections/{collection_name}/schema"
+    response = requests.post(url, headers=headers, data=json.dumps(body))
+    if response.status_code == 200:
+        print(f"Successfully added lyrics analyzers")
+    else:
+        print(f"Error adding lyrics analyzers: status code {response.status_code}")
+    print(response.content)
+
+def add_lyrics_wordcloud_field_type(collection_name):
+    body = {
+        "add-field-type": {
+            "name": "lyricsWordcloudField",
+            "class": "solr.TextField",
+            "indexAnalyzer": {
+                "tokenizer": {
+                    "name": "standard"
+                },
+                "filters": [
+                    {
+                        "name": "stop",
+                        "ignoreCase": "true",
+                        "words": "lang/stopwords_en_extended.txt"
+                    },
+                    {
+                        "name": "lowercase",
+                    },
+                    {
+                        "name": "englishPossessive",
+                    },
+                ]
+            },
+            "queryAnalyzer": {
+                "tokenizer": {
+                    "name": "standard"
+                },
+                "filters": [
+                    {
+                        "name": "stop",
+                        "ignoreCase": "true",
+                        "words": "lang/stopwords_en_extended.txt"
+                    },
+                    {
+                        "name": "lowercase",
+                    },
+                    {
+                        "name": "englishPossessive",
+                    },
+                ]
+            }
+        }
+    }
+    headers = {'Content-type': 'application/json'}
+    url = HOST_URL + f"api/collections/{collection_name}/schema"
+    response = requests.post(url, headers=headers, data=json.dumps(body))
+    if response.status_code == 200:
+        print(f"Successfully added lyrics wordcloud analyzers")
+    else:
+        print(f"Error adding lyrics wordcloud analyzers: status code {response.status_code}")
+    print(response.content)
+
+def replace_field(collection_name, field, type):
+    body = {
+        "replace-field": {
+            "name": field,
+            "type": type
+        }
+    }
+    headers = {'Content-type': 'application/json'}
+    url = HOST_URL + f"api/collections/{collection_name}/schema"
+    response = requests.post(url, headers=headers, data=json.dumps(body))
+    if response.status_code == 200:
+        print(f"Successfully edited lyrics field")
+    else:
+        print(f"Error adding lyrics field: status code {response.status_code}")
+
+def delete_all(collection_name):
+    body = {
+        "delete": {
+            "query": "*:*"
+        }
+    }
+    headers = {'Content-type': 'application/json'}
+    url = HOST_URL + f"solr/{collection_name}/update"
+    response = requests.post(url, headers=headers, data=json.dumps(body))
+    if response.status_code == 200:
+        print(f"Successfully deleted all entries")
+    else:
+        print(f"Error deleting entries: status code {response.status_code}")
+
+
+
+
+
+
 # create_collection("music")
 # define_schema("music", MUSIC_SCHEMA)
 add_data("music")
+# spellcheck("music")
+# add_lyrics_field_type("music")
+# add_lyrics_wordcloud_field_type("music")
+# replace_field("music", "lyrics", "lyricsField")
+# replace_field("music", "lyrics_wordcloud", "lyricsWordcloudField")
+# delete_all("music")
+

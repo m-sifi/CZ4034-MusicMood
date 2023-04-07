@@ -5,9 +5,10 @@ import { SongLyrics } from "./SongLyrics";
 
 interface SongProps {
   song: Song;
+  searchText: string;
 }
 
-export function Song({ song }: SongProps) {
+export function Song({ song, searchText }: SongProps) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -23,7 +24,7 @@ export function Song({ song }: SongProps) {
       <SongInfo song={song} />
       <div className="pl-4">
         <h2 className="text-lg font-semibold mb-4">Lyrics</h2>
-        <SongLyrics id={song.id} /> 
+        <SongLyrics id={song.id} searchText={searchText} /> 
       </div>
     </motion.div>
   );

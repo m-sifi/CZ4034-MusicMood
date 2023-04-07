@@ -37,12 +37,21 @@ dependencies:
   react-dom:
     specifier: 18.2.0
     version: 18.2.0(react@18.2.0)
+  react-highlight-words:
+    specifier: ^0.20.0
+    version: 0.20.0(react@18.2.0)
+  react-icons:
+    specifier: ^4.8.0
+    version: 4.8.0(react@18.2.0)
   react-infinite-scroller:
     specifier: ^1.2.6
     version: 1.2.6(react@18.2.0)
   react-media-recorder:
     specifier: ^1.6.6
     version: 1.6.6
+  react-tagcloud:
+    specifier: ^2.3.1
+    version: 2.3.1(react@18.2.0)
   typescript:
     specifier: 5.0.2
     version: 5.0.2
@@ -1580,6 +1589,10 @@ packages:
     dependencies:
       function-bind: 1.1.1
 
+  /highlight-words-core@1.2.2:
+    resolution: {integrity: sha512-BXUKIkUuh6cmmxzi5OIbUJxrG8OAk2MqoL1DtO3Wo9D2faJg2ph5ntyuQeLqaHJmzER6H5tllCDA9ZnNe9BVGg==}
+    dev: false
+
   /ignore@5.2.4:
     resolution: {integrity: sha512-MAb38BcSbH0eHNBxn7ql2NH/kX33OkB3lZ1BNdh7ENeRChHTYsTvWrMubiIAMNS2llXEEgZ1MUOBtXChP3kaFQ==}
     engines: {node: '>= 4'}
@@ -1910,6 +1923,10 @@ packages:
       media-encoder-host-broker: 7.0.78
       media-encoder-host-worker: 9.1.0
       tslib: 2.5.0
+    dev: false
+
+  /memoize-one@4.0.3:
+    resolution: {integrity: sha512-QmpUu4KqDmX0plH4u+tf0riMc1KHE1+lw95cMrLlXQAFOx/xnBtwhZ52XJxd9X2O6kwKBqX32kmhbhlobD0cuw==}
     dev: false
 
   /merge2@1.4.1:
@@ -2307,6 +2324,10 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
+  /randomcolor@0.6.2:
+    resolution: {integrity: sha512-Mn6TbyYpFgwFuQ8KJKqf3bqqY9O1y37/0jgSK/61PUxV4QfIMv0+K2ioq8DfOjkBslcjwSzRfIDEXfzA9aCx7A==}
+    dev: false
+
   /react-dom@18.2.0(react@18.2.0):
     resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
     peerDependencies:
@@ -2315,6 +2336,25 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
+    dev: false
+
+  /react-highlight-words@0.20.0(react@18.2.0):
+    resolution: {integrity: sha512-asCxy+jCehDVhusNmCBoxDf2mm1AJ//D+EzDx1m5K7EqsMBIHdZ5G4LdwbSEXqZq1Ros0G0UySWmAtntSph7XA==}
+    peerDependencies:
+      react: ^0.14.0 || ^15.0.0 || ^16.0.0-0 || ^17.0.0-0 || ^18.0.0-0
+    dependencies:
+      highlight-words-core: 1.2.2
+      memoize-one: 4.0.3
+      prop-types: 15.8.1
+      react: 18.2.0
+    dev: false
+
+  /react-icons@4.8.0(react@18.2.0):
+    resolution: {integrity: sha512-N6+kOLcihDiAnj5Czu637waJqSnwlMNROzVZMhfX68V/9bu9qHaMIJC4UdozWoOk57gahFCNHwVvWzm0MTzRjg==}
+    peerDependencies:
+      react: '*'
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /react-infinite-scroller@1.2.6(react@18.2.0):
@@ -2335,6 +2375,18 @@ packages:
     dependencies:
       extendable-media-recorder: 6.6.10
       extendable-media-recorder-wav-encoder: 7.0.85
+    dev: false
+
+  /react-tagcloud@2.3.1(react@18.2.0):
+    resolution: {integrity: sha512-vWnPzx1bmR2ya7WEeqCbZGO8q/x0agOjxnXQGD9jg5OAyLqaKWAfArKypaoUVXYDyjABcZg5BDu8qLC9JRGDbg==}
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      prop-types: 15.8.1
+      randomcolor: 0.6.2
+      react: 18.2.0
+      seedrandom: 3.0.5
+      shuffle-array: 1.0.1
     dev: false
 
   /react@18.2.0:
@@ -2450,6 +2502,10 @@ packages:
     resolution: {integrity: sha512-d7wDPgDV3DDiqulJjKiV2865wKsJ34YI+NDREbm+FySq6WuKOikwyNQcm+doLAZ1O6ltdO0SeKle2xMpN3Brgw==}
     dev: false
 
+  /seedrandom@3.0.5:
+    resolution: {integrity: sha512-8OwmbklUNzwezjGInmZ+2clQmExQPvomqjL7LFqOYqtmuxRgQYqOD3mHaU+MvZn5FLUeVxVfQjwLZW/n/JFuqg==}
+    dev: false
+
   /semver@6.3.0:
     resolution: {integrity: sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==}
     hasBin: true
@@ -2473,6 +2529,10 @@ packages:
   /shebang-regex@3.0.0:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
+    dev: false
+
+  /shuffle-array@1.0.1:
+    resolution: {integrity: sha512-0TFRU8zVQaLatWKr0/czo19VyPNgb/a3sBc1GAjVfivfzEGaS54vueNgtAu/8/pW7EM/VF5fwq9zgpLdGyRmVw==}
     dev: false
 
   /side-channel@1.0.4:

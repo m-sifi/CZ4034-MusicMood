@@ -18,12 +18,12 @@ export function Header({ visible }: HeaderProps) {
             damping: 20,
           }}
         >
-          <header className="container mx-auto mt-32 text-center">
+          <header className="container mx-auto mt-32 text-center space-y-4">
             <h1 className="text-6xl font-extrabold leading-none tracking-tight text-gray-900">
-              Information Retrieval Project
+              Mood Match
             </h1>
             <h2 className="text-4xl font-semibold leading-none tracking-tight text-gray-700">
-              Discover music using sentiment analysis based on mood
+              Discover mood of music using sentiment analysis based on lyrics
             </h2>
           </header>
         </motion.div>
