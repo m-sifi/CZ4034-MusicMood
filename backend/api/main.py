@@ -58,7 +58,7 @@ def get_mood(q:str):
 @app.get("/search")
 def search(q: str, rows: int, start: int):
     res = requests.get("http://localhost:8983/solr/music/spell",
-                       params={"q": q, "rows": rows, "start": start, "spellcheck": "true", "spellcheck.build": "true"})
+                       params={"q": f"lyrics:{q}", "rows": rows, "start": start, "spellcheck": "true", "spellcheck.build": "true"})
     
     classification = get_mood(q)
     res = res.json()
@@ -122,8 +122,13 @@ def wordcloud(q: str):
     res = requests.get("http://localhost:8983/solr/music/select",
                        params={"q": q, "rows": 0, "facet": "true", "facet.field": "lyrics_wordcloud"})
     res = res.json()
+    numFound = res["response"]["numFound"]
     suggestions = res["facet_counts"]["facet_fields"]["lyrics_wordcloud"]
     res = []
+
+    if numFound == 0:
+        return []
+
     for i in range(0, len(suggestions), 2):
         if suggestions[i].lower() not in q and suggestions[i] not in stopwords.words('english'):
             res.append({

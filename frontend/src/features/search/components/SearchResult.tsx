@@ -62,7 +62,10 @@ export function SearchResult({
     fetchWordCloud(searchText)
       .catch(console.error)
       .then((resp) => {
-        console.log(resp);
+        if(!resp) {
+          setWordcloudData([]);
+          return;
+        }
         resp = resp.filter((item: { value: string; freq: number }) => {
           return /[a-zA-Z]/.test(item.value);
         });
@@ -76,7 +79,7 @@ export function SearchResult({
         <TagCloud minSize={12} maxSize={35} tags={wordcloudData} />
       )} */}
       {visible && (
-        <motion.div className="grid grid-cols-search gap-3 w-screen h-[800px] p-8">
+        <motion.div className="grid grid-cols-search gap-3 w-screen h-[600px] p-8">
           <motion.div
             id="divSongList"
             className="p-2 overflow-x-hidden overflow-y-auto border-r-2 bg-neutral-50 rounded-md"
