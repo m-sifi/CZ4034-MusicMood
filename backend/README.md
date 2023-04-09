@@ -30,3 +30,17 @@ The following commands start up the wrapper API as well as Solr cloud.
 ```
 ./run.sh -s
 ```
+
+## Setup
+
+When running the backend for the first time, you must configure the Solr server with the functions in [setup.py](https://github.com/m-sifi/CZ4034-MusicMood/blob/main/backend/scripts/setup.py). The sequence of functions to run is in this order:
+```
+create_collection("music")
+define_schema("music", MUSIC_SCHEMA)
+spellcheck("music")
+add_lyrics_field_type("music")
+add_lyrics_wordcloud_field_type("music")
+replace_field("music", "lyrics", "lyricsField")
+replace_field("music", "lyrics_wordcloud", "lyricsWordcloudField")
+add_data("music")
+```
