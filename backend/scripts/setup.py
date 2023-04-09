@@ -296,11 +296,11 @@ def delete_all(collection_name):
 
 # create_collection("music")
 # define_schema("music", MUSIC_SCHEMA)
-add_data("music")
 # spellcheck("music")
 # add_lyrics_field_type("music")
 # add_lyrics_wordcloud_field_type("music")
 # replace_field("music", "lyrics", "lyricsField")
 # replace_field("music", "lyrics_wordcloud", "lyricsWordcloudField")
+# add_data("music")
 # delete_all("music")
 
